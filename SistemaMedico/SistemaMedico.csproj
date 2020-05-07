@@ -172,14 +172,63 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Bootstrap\css\bootstrap.css" />
+    <Content Include="Bootstrap\css\bootstrap.min.css" />
+    <Content Include="Bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="Bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="Bootstrap\js\bootstrap.js" />
+    <Content Include="Bootstrap\js\bootstrap.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\styles.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.min.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.foundation.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.foundation.min.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.jqueryui.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.jqueryui.min.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.semanticui.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\dataTables.semanticui.min.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\jquery.dataTables.css" />
+    <Content Include="DataTables\DataTables-1.10.18\css\jquery.dataTables.min.css" />
+    <Content Include="DataTables\DataTables-1.10.18\images\sort_asc.png" />
+    <Content Include="DataTables\DataTables-1.10.18\images\sort_asc_disabled.png" />
+    <Content Include="DataTables\DataTables-1.10.18\images\sort_both.png" />
+    <Content Include="DataTables\DataTables-1.10.18\images\sort_desc.png" />
+    <Content Include="DataTables\DataTables-1.10.18\images\sort_desc_disabled.png" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.bootstrap.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.bootstrap.min.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.bootstrap4.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.bootstrap4.min.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.foundation.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.foundation.min.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.jqueryui.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.jqueryui.min.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.semanticui.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\dataTables.semanticui.min.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\jquery.dataTables.js" />
+    <Content Include="DataTables\DataTables-1.10.18\js\jquery.dataTables.min.js" />
+    <Content Include="DataTables\datatables.css" />
+    <Content Include="DataTables\datatables.js" />
+    <Content Include="DataTables\datatables.min.css" />
+    <Content Include="DataTables\datatables.min.js" />
+    <Content Include="dist\login.html" />
+    <Content Include="dist\password.html" />
+    <Content Include="dist\register.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="jquery\jquery-3.3.1.min.js" />
+    <Content Include="js\scripts.js" />
     <Content Include="Models\ModelMedico.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelMedico.edmx</DependentUpon>
@@ -190,6 +239,7 @@
       <DependentUpon>ModelMedico.edmx</DependentUpon>
       <LastGenOutput>ModelMedico.cs</LastGenOutput>
     </Content>
+    <Content Include="popper\popper.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\ModelMedico.edmx">
@@ -199,6 +249,16 @@
     <Content Include="Models\ModelMedico.edmx.diagram">
       <DependentUpon>ModelMedico.edmx</DependentUpon>
     </Content>
+    <Content Include="Bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Bootstrap\css\bootstrap.css.map" />
+    <Content Include="Bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="Bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Bootstrap\js\bootstrap.js.map" />
+    <Content Include="Bootstrap\js\bootstrap.min.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -210,6 +270,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="SweetAlert2\sweetalert2.all.min.js" />
+    <Content Include="SweetAlert2\sweetalert2.min.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -227,6 +289,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="cModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
