@@ -38,47 +38,85 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="index.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
+                        <div class="sb-sidenav-menu-heading">Menú</div>
+
+                        @*<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+            Pages
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+        </a>
+        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                    Authentication
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="~/dist/login.html">Login</a><a class="nav-link" href="~/dist/register.html">Register</a><a class="nav-link" href="~/dist/password.html">Forgot Password</a></nav>
+                </div>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                    Error
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="~/dist/401.html">401 Page</a><a class="nav-link" href="~/dist/404.html">404 Page</a><a class="nav-link" href="~/dist/500.html">500 Page</a></nav>
+                </div>
+            </nav>
+        </div>*@
+                        <a class="nav-link" href="@Url.Action("Index", "Inicio")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                            Inicio
                         </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link" href="@Url.Action("Index", "Citas")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-medkit"></i></div>
+                            Citas
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Index", "Medicos")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-md"></i></div>
+                            Médicos
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Index", "Pacientes")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Pacientes
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Index", "Consultorios")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-hospital-alt"></i></div>
+                            Consultorios
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Index", "Especialidades")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-stethoscope"></i></div>
+                            Especialidades
+                        </a>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerfil" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tools"></i></div>
+                            Configuracion
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePerfil" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="@Url.Action("Index", "Usuarios")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
+                                    Perfil de la clinica
+                                </a>
+                            </nav>
+                        </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Layouts
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-lock"></i></div>
+                            Administrar accesos
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="~/dist/layout-static.html">Static Navigation</a><a class="nav-link" href="~/dist/layout-sidenav-light.html">Light Sidenav</a></nav>
-                        </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Pages
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="@Url.Action("Index", "Usuarios")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                    Usuarios
                                 </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="~/dist/login.html">Login</a><a class="nav-link" href="~/dist/register.html">Register</a><a class="nav-link" href="~/dist/password.html">Forgot Password</a></nav>
-                                </div>
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                    Error
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                <a class="nav-link" href="@Url.Action("Index", "GrupoUsuarios")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
+                                    Grupo de usuarios
                                 </a>
-                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="~/dist/401.html">401 Page</a><a class="nav-link" href="~/dist/404.html">404 Page</a><a class="nav-link" href="~/dist/500.html">500 Page</a></nav>
-                                </div>
                             </nav>
                         </div>
-                        <a class="nav-link" href="@Url.Action("Index", "Categorias")">
-                            <div class="sb-nav-link-icon"><i class="far fa-list-alt"></i></div>
-                            Categorias
-                        </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
