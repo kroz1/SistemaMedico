@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="cModels\cEspecialidades.cs" />
+    <Compile Include="cModels\cMedicos.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicosController.cs" />
@@ -237,6 +238,7 @@
       <DependentUpon>ModelMedico.edmx</DependentUpon>
       <LastGenOutput>ModelMedico.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\ModelMedico.edmx.sql" />
     <Content Include="Models\ModelMedico.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelMedico.edmx</DependentUpon>

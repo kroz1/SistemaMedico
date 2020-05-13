@@ -11,15 +11,19 @@ namespace SistemaMedico.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+    using System.Web.Script.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Medicos
     {
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Medicos()
         {
             this.Citas = new HashSet<Citas>();
         }
-    
+
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -30,7 +34,9 @@ namespace SistemaMedico.Models
         public int Id_especialidad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [ScriptIgnore]
         public virtual ICollection<Citas> Citas { get; set; }
+        [ScriptIgnore]
         public virtual Especialidades Especialidades { get; set; }
     }
 }

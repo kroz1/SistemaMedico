@@ -81,9 +81,9 @@
                     },
                 },
                 {
-                    "name": "Especialidad",
+                    "name": "Id_especialidad",
                     "render": function (data, type, row, meta) {
-                        return row.Especialidad;
+                        return row.Id_especialidad;
                     },
                 },
             ]
@@ -149,6 +149,89 @@
         });
     }
 
+    function eliminar(Id) {
+        Swal.fire({
+            title: '¿Esta seguro que quiere eliminar el registro?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No',
+        }).then(
+            function (result) {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Eliminando..',
+                        onOpen: () => {
+                            swal.showLoading()
+                            $.ajax({
+                                type: "POST",
+                                url: "/Medicos/eliminar",
+                                data: { 'Id': Id },
+                                success: function (data) {
+                                    if (data["status"] == true) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Medico eliminado',
+                                            showCloseButton: true,
+                                            allowEnterKey: true,
+                                            onClose: () => {
+                                                actualizar();
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            showConfirmButton: true,
+                                            text: data["mensaje"]
+                                        });
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            })
+                        },
+                        onClose: () => {
+
+                        }
+                    })
+                }
+            });
+    }
+
+    function editar(Id) {
+        $.ajax({
+            type: "POST",
+            url: "/Medicos/editar",
+            data: { "Id": Id },
+            success: function (data) {
+                $('#modalMedicos').modal('show');
+                $("#divMensajeError").hide();
+                $("#divMensaje").hide();
+                if (data["status"] == true) {
+                    $('#Id').val(data["datos"]["Id"]);
+                    $('#txtNombre').val(data["datos"]["Nombre"]);
+                    $('#txtApellido').val(data["datos"]["Apellido"]);
+                    $('#txtTelefono').val(data["datos"]["Telefono"]);
+                    $('#txtDirección').val(data["datos"]["Direccion"]);
+                    $('#txtCorreo').val(data["datos"]["correo"]);
+                    $('#selectEspecialidad').val(data["datos"]["Id_especialidad"]);
+                }
+                else {
+                    $("#divMensajeError").show();
+                    $("#divMensajeError").html(data["mensaje"]);
+                }
+            },
+            error: function (error) {
+                $('#modalMedicos').modal('toggle');
+                $("#divMensajeError").show()
+                $("#divMensajeError").html(error);
+            }
+        });
+    }
+
     //Actualiza la datatable
     function actualizar() {
         table.ajax.reload(null, false); //reload de datatable ajax
@@ -162,8 +245,7 @@
 <div class="card border-success mb-3" style="max-width: 80rem;">
     <div class="card-header">
         <strong><i class="fas fa-user-md"></i> MÉDICOS</strong>
-        @*<button type="button" id="btnActualizar" class="btn btn-info float-right"><i class="fas fa-redo"></i> Actualizar</button>*@
-
+        
         <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modalMedicos"><i class="fas fa-plus"></i> Agregar Médico</button>
     </div>
     <div class="card-body">
@@ -223,11 +305,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 
 
 <script type="text/javascript" src="~/DataTables/datatables.min.js" defer></script>
