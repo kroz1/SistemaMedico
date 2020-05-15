@@ -132,6 +132,7 @@
     <Compile Include="cModels\cEspecialidades.cs" />
     <Compile Include="cModels\cMedicos.cs" />
     <Compile Include="cModels\cPacientes.cs" />
+    <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicosController.cs" />
@@ -296,6 +297,7 @@
     <Content Include="Views\Medicos\Index.cshtml" />
     <Content Include="Views\Especialidades\Index.cshtml" />
     <Content Include="Views\Pacientes\Index.cshtml" />
+    <Content Include="Views\Citas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

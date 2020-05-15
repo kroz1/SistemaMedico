@@ -56,6 +56,10 @@ namespace SistemaMedico.Controllers
         {
             //creamos el objeto de la clase Pacientes
             Pacientes objPaciente = new Pacientes();
+            if(pacientes.FechaNacimiento == null)
+            {
+                return Json(new { status = false, mensaje = "La fecha esta vacia" });
+            }
             if(pacientes.Id != 0)
             {
                 //editar
