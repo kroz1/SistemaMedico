@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/13/2020 14:14:53
+-- Date Created: 05/21/2020 15:39:44
 -- Generated from EDMX file: C:\Users\edgar\OneDrive\Documentos\Visual Studio 2019\Projects\SistemaMedico\SistemaMedico\Models\ModelMedico.edmx
 -- --------------------------------------------------
 
@@ -144,7 +144,8 @@ CREATE TABLE [dbo].[Usuarios] (
     [Correo] varchar(150)  NOT NULL,
     [Grupo] varchar(50)  NOT NULL,
     [Agregado] datetime  NOT NULL,
-    [Estado] varchar(50)  NOT NULL
+    [Estado] varchar(50)  NOT NULL,
+    [Contrasenia] varchar(255)  NOT NULL
 );
 GO
 

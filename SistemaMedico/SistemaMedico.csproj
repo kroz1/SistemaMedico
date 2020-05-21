@@ -133,12 +133,14 @@
     <Compile Include="cModels\cEspecialidades.cs" />
     <Compile Include="cModels\cMedicos.cs" />
     <Compile Include="cModels\cPacientes.cs" />
+    <Compile Include="cModels\cUsuarios.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicosController.cs" />
     <Compile Include="Controllers\PacientesController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -301,6 +303,7 @@
     <Content Include="Views\Pacientes\Index.cshtml" />
     <Content Include="Views\Citas\Index.cshtml" />
     <Content Include="Views\Consultorios\Index.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

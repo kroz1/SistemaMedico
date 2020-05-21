@@ -22,5 +22,6 @@ namespace SistemaMedico.Models
         public string Grupo { get; set; }
         public System.DateTime Agregado { get; set; }
         public string Estado { get; set; }
+        public string Contrasenia { get; set; }
     }
 }

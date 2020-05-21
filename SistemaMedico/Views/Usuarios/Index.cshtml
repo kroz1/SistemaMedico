@@ -1,0 +1,553 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="shortcut icon" href="#" />
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="~/Bootstrap/css/bootstrap.min.css" />
+<!--datables CSS básico-->
+<link rel="stylesheet" href="~/DataTables/datatables.min.css" />
+<!--datables estilo bootstrap 4 CSS-->
+<link rel="stylesheet" href="~/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css" />
+
+<script src="~/jquery/jquery-3.3.1.min.js"></script>
+<script src="~/popper/popper.min.js"></script>
+<script src="~/Bootstrap/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="~/SweetAlert2/sweetalert2.min.css" />
+
+<script type="text/javascript" class="init">
+    var table;
+    $(document).ready(function () {
+        var cargandoGeneral = Swal.fire({
+            title: 'Cargando datos ...',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            showConfirmButton: false
+        });
+        table = $('#tablaUsuarios').DataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
+            },
+
+            ajax: {
+                type: "POST",
+                url: '@Url.Action("listar", "Usuarios")',
+
+                complete: function (data) {
+                    cargandoGeneral.close();
+                }
+            },
+
+            columns: [
+                {
+                    data: "Id", "render": function (Id) {
+                        return '<button type="button" class="btn btn-outline-danger btn-sm" onclick="eliminar(' + Id
+                                + ');"><i class="fa fa-trash"></i></button> <button type="button" class="btn btn-outline-primary btn-sm" onclick="editar(' + Id
+                                + ');"><i class="fas fa-pencil-alt"></i></button> <button type="button" class="btn btn-outline-secondary btn-sm" onclick="editarContrasena(' + Id
+                                + ');"><i class="fas fa-tools"></i></button>';
+                    }
+                },
+                {
+                    "name": "Nombre",
+                    "render": function (data, type, row, meta) {
+                        return row.Nombre + " " + row.Apellido;
+                    },
+                },
+                {
+                    "name": "Usuario",
+                    "render": function (data, type, row, meta) {
+                        return row.Usuario;
+                    },
+                },
+                {
+                    "name": "Correo",
+                    "render": function (data, type, row, meta) {
+                        return row.Correo;
+                    },
+                },
+                {
+                    "name": "Grupo",
+                    "render": function (data, type, row, meta) {
+                        return row.Grupo;
+                    },
+                },
+                {
+                    "name": "Agregado",
+                    "render": function (data, type, row, meta) {
+                        var fecha = "";
+                        if (row.Agregado) {
+                            fecha = row.Agregado == '0001-01-01T00:00:00' ? '' : row.Agregado.split('T')[0].split('-').reverse().join('/');
+                        }
+                        return fecha;
+                    },
+                },
+                {
+                    "name": "Estado",
+                    "render": function (data, type, row, meta) {
+                        return row.Estado;
+                    },
+                },
+            ]
+        });
+
+        $('#btnGuardarCambios').click(function () {
+            editarUsuario();
+        })
+
+        $('#btnGuardar').click(function () {
+            guardar();
+        })
+
+        $('#btnGuardarContrasena').click(function () {
+            guardarNuevaContrasena();
+        })
+    })
+
+    function guardar() {
+        Swal.fire({
+            title: "Guardando..",
+            onOpen: () => {
+                swal.showLoading()
+                $.ajax({
+                    type: "POST",
+                    url: "/Usuarios/guardar",
+                    data: {
+                        "Id": $('#Id').val(),
+                        "Nombre": $('#txtNombre').val(),
+                        "Apellido": $('#txtApellidos').val(),
+                        "Usuario": $('#txtUsuario').val(),
+                        "Correo": $('#txtEmail').val(),
+                        "Grupo": $('#txtContraseña2').val(),
+                        "Estado": $('#txtContraseña2').val(),
+                        "Contrasenia": $('#txtContraseña').val(),
+                        "Contrasenia": $('#txtContraseña2').val(),
+                        
+                    },
+                    success: function (data) {
+                        $("#divBotones").show();
+                        if (data["status"] == true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se ha guardado el usuario',
+                                showCloseButton: true,
+                                allowEnterKey: true,
+                                onClose: () => {
+                                    $('#Id').val(data["datos"]["Id"]);
+                                    actualizar();
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                showConfirmButton: true,
+                                text: data["mensaje"]
+                            });
+                        }
+                    },
+                    error: function (request, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: request.responseText
+                        });
+                    }
+                });
+            },
+            onClose: () => {
+
+            }
+        });
+    }
+
+    function guardarNuevaContrasena() {
+        Swal.fire({
+            title: "Guardando..",
+            onOpen: () => {
+                swal.showLoading()
+                $.ajax({
+                    type: "POST",
+                    url: "/Usuarios/guardarNuevaContrasena",
+                    data: {
+                        "Id": $('#Id').val(),
+                        "Contrasenia": $('#txtNuevaContraseña').val(),
+                        "Contrasenia": $('#txtNuevaContraseña2').val()
+                    },
+                    success: function (data) {
+                        $("#divBotones").show();
+                        if (data["status"] == true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se ha guardado la nueva contraseña',
+                                showCloseButton: true,
+                                allowEnterKey: true,
+                                onClose: () => {
+                                    $('#Id').val(data["datos"]["Id"]);
+                                    actualizar();
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                showConfirmButton: true,
+                                text: data["mensaje"]
+                            });
+                        }
+                    },
+                    error: function (request, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: request.responseText
+                        });
+                    }
+                });
+            },
+            onClose: () => {
+
+            }
+        });
+    }
+
+    function editarUsuario() {
+        Swal.fire({
+            title: "Guardando..",
+            onOpen: () => {
+                swal.showLoading()
+                $.ajax({
+                    type: "POST",
+                    url: "/Usuarios/guardarCambios",
+                    data: {
+                        "Id": $('#Id').val(),
+                        "Nombre": $('#txtEditarNombre').val(),
+                        "Apellido": $('#txtEditarApellidos').val(),
+                        "Usuario": $('#txtEditarUsuario').val(),
+                        "Correo": $('#txtEditarEmail').val(),
+                        "Grupo": $('#selectEditarPermisos').val(),
+                        "Estado": $('#selectEditarEstado').val(),
+                    },
+                    success: function (data) {
+                        $("#divBotones").show();
+                        if (data["status"] == true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se han guardado los cambios',
+                                showCloseButton: true,
+                                allowEnterKey: true,
+                                onClose: () => {
+                                    $('#user_id').val(data["datos"]["user_id"]);
+                                    actualizar();
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                showConfirmButton: true,
+                                text: data["mensaje"]
+                            });
+                        }
+                    },
+                    error: function (request, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: request.responseText
+                        });
+                    }
+                });
+            },
+            onClose: () => {
+
+            }
+        });
+    }
+
+    function eliminar(Id) {
+        Swal.fire({
+            title: '¿Esta seguro que quiere eliminar el usuario?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No',
+        }).then(
+            function (result) {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Eliminando..',
+                        onOpen: () => {
+                            swal.showLoading()
+                            $.ajax({
+                                type: "POST",
+                                url: "/Usuarios/eliminar",
+                                data: { 'Id': Id },
+                                success: function (data) {
+                                    if (data["status"] == true) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Usuario eliminado',
+                                            showCloseButton: true,
+                                            allowEnterKey: true,
+                                            onClose: () => {
+                                                actualizar();
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            showConfirmButton: true,
+                                            text: data["mensaje"]
+                                        });
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            })
+                        },
+                        onClose: () => {
+
+                        }
+                    })
+                }
+            });
+    }
+
+    function editar(Id) {
+        $.ajax({
+            type: "POST",
+            url: "/Usuarios/editar",
+            data: { "Id": Id },
+            success: function (data) {
+                $('#modalEditarUsuarios').modal('show');
+                $("#divMensajeError").hide();
+                $("#divMensaje").hide();
+                if (data["status"] == true) {
+                    $('#Id').val(data["datos"]["Id"]);
+                    $('#txtEditarNombre').val(data["datos"]["Nombre"]);
+                    $('#txtEditarApellidos').val(data["datos"]["Apellido"]);
+                    $('#txtEditarUsuario').val(data["datos"]["Usuario"]);
+                    $('#txtEditarEmail').val(data["datos"]["Correo"]);
+                    $('#selectEditarPermisos').val(data["datos"]["Grupo"]);
+                    $('#selectEditarEstado').val(data["datos"]["Estado"]);
+                }
+                else {
+                    $("#divMensajeError").show();
+                    $("#divMensajeError").html(data["mensaje"]);
+                }
+            },
+            error: function (error) {
+                $('#modalEditarUsuarios').modal('toggle');
+                $("#divMensajeError").show()
+                $("#divMensajeError").html(error);
+            }
+        });
+    }
+
+    function editarContrasena(Id) {
+        $.ajax({
+            type: "POST",
+            url: "/Usuarios/editar",
+            data: { "Id": Id },
+            success: function (data) {
+                $('#modalPassword').modal('show');
+                $("#divMensajeError").hide();
+                $("#divMensaje").hide();
+                if (data["status"] == true) {
+                    $('#user_id').val(data["datos"]["user_id"]);
+                    $('#txtNuevaContraseña').val(data["datos"]["Contrasenia"]);
+                    $('#txtNuevaContraseña2').val(data["datos"]["Contrasenia"]);
+                }
+                else {
+                    $("#divMensajeError").show();
+                    $("#divMensajeError").html(data["mensaje"]);
+                }
+            },
+            error: function (error) {
+                $('#modalPassword').modal('toggle');
+                $("#divMensajeError").show()
+                $("#divMensajeError").html(error);
+            }
+        });
+    }
+
+    //Actualiza la datatable
+    function actualizar() {
+        table.ajax.reload(null, false); //reload de datatable ajax
+    }
+
+</script>
+
+<br />
+<br />
+
+<div class="card border-success mb-3" style="max-width: 80rem;">
+    <div class="card-header">
+        <strong><i class="fas fa-users"></i> USUARIOS</strong>
+        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modalUsuarios"><i class="fas fa-plus"></i> Agregar Usuario</button>
+    </div>
+    <div class="card-body">
+        <table id="tablaUsuarios" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th> Nombre </th>
+                    <th> Usuario </th>
+                    <th> Email </th>
+                    <th> Grupo </th>
+                    <th> Fecha de alta </th>
+                    <th> Estado </th>
+                </tr>
+            </thead>
+            <tfoot>
+
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="modalUsuarios">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-user-plus"></i> Agregar Usuario</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="user_id" name="user_id" />
+                <label>Nombre</label>
+                <input type="text" id="txtNombre" name="txtNombre" class="form-control">
+                <label>Apellidos</label>
+                <input type="text" id="txtApellidos" name="txtApellidos" class="form-control">
+                <label>Usuario</label>
+                <input type="text" id="txtUsuario" name="txtUsuario" class="form-control">
+                <label>Email</label>
+                <input type="email" id="txtEmail" name="txtEmail" class="form-control">
+                <label>Grupo de permisos</label>
+                <select class="browser-default custom-select" id="selectPermisos" name="selectPermisos">
+                    <option selected disabled>Selecciona el tipo de usuario</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Personal">Personal</option>
+                </select>
+                <label>Estado</label>
+                <select class="browser-default custom-select" id="selectEstado" name="selectEstado">
+                    <option selected disabled>Selecciona el estado</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+                <label>Contraseña</label>
+                <input type="password" id="txtContraseña" name="txtContraseña" class="form-control">
+                <label>Repite contraseña</label>
+                <input type="password" id="txtContraseña2" name="txtContraseña2" class="form-control">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id="divBotones">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>
+                    <button id="btnGuardar" type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-save"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal edit user-->
+<div class="modal fade" id="modalEditarUsuarios">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-user-edit"></i> Editar Usuario</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="user_id" name="user_id" />
+                <label>Nombre</label>
+                <input type="text" id="txtEditarNombre" name="txtEditarNombre" class="form-control">
+                <label>Apellidos</label>
+                <input type="text" id="txtEditarApellidos" name="txtEditarApellidos" class="form-control">
+                <label>Usuario</label>
+                <input type="text" id="txtEditarUsuario" name="txtEditarUsuario" class="form-control">
+                <label>Email</label>
+                <input type="text" id="txtEditarEmail" name="txtEditarEmail" class="form-control">
+                <label>Grupo de permisos</label>
+                <select class="browser-default custom-select" id="selectEditarPermisos" name="selectEditarPermisos">
+                    <option selected disabled>Selecciona el tipo de usuario</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Personal">Personal</option>
+                </select>
+                <label>Estado</label>
+                <select class="browser-default custom-select" id="selectEditarEstado" name="selectEditarEstado">
+                    <option selected disabled>Selecciona el estado</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id="divBotones">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>
+                    <button id="btnGuardarCambios" type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-save"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal edit password -->
+<div class="modal fade" id="modalPassword">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-user-edit"></i> Editar Contraseña</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="user_id" name="user_id" />
+                <label>Nueva Contraseña</label>
+                <input type="password" id="txtNuevaContraseña" name="txtNuevaContraseña" class="form-control">
+                <label>Repite contraseña</label>
+                <input type="password" id="txtNuevaContraseña2" name="txtNuevaContraseña2" class="form-control">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id="divBotones">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>
+                    <button id="btnGuardarContrasena" type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-save"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/DataTables/datatables.min.js" defer></script>
+<script src="~/SweetAlert2/sweetalert2.all.min.js"></script>

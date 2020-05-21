@@ -117,6 +117,7 @@
     <Property Name="Grupo" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Agregado" Type="datetime" Nullable="false" />
     <Property Name="Estado" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Contrasenia" Type="varchar" Nullable="false" MaxLength="255" />
   </EntityType>
   <Association Name="FK_Citas_Consultorios">
     <End Role="Consultorios" Type="citas_medicasModel.Store.Consultorios" Multiplicity="1" />
@@ -265,6 +266,7 @@
           <Property Name="Grupo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Agregado" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Citas_Consultorios">
           <End Role="Consultorios" Type="Self.Consultorios" Multiplicity="1" />
@@ -437,6 +439,7 @@
           <ScalarProperty Name="Grupo" ColumnName="Grupo" />
           <ScalarProperty Name="Agregado" ColumnName="Agregado" />
           <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
