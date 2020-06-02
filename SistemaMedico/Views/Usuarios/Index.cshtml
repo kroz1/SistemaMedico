@@ -91,7 +91,10 @@
                 {
                     "name": "Estado",
                     "render": function (data, type, row, meta) {
-                        return row.Estado;
+                        if (row.Estado == "Activo") {
+                            return '<span class="badge badge-success">' + row.Estado + '</span>';
+                        }
+                        return '<span class="badge badge-danger">' + row.Estado + '</span>';
                     },
                 },
             ]
@@ -124,8 +127,8 @@
                         "Apellido": $('#txtApellidos').val(),
                         "Usuario": $('#txtUsuario').val(),
                         "Correo": $('#txtEmail').val(),
-                        "Grupo": $('#txtContraseña2').val(),
-                        "Estado": $('#txtContraseña2').val(),
+                        "Grupo": $('#selectPermisos').val(),
+                        "Estado": $('#selectEstado').val(),
                         "Contrasenia": $('#txtContraseña').val(),
                         "Contrasenia": $('#txtContraseña2').val(),
                         
@@ -367,7 +370,7 @@
                 $("#divMensajeError").hide();
                 $("#divMensaje").hide();
                 if (data["status"] == true) {
-                    $('#user_id').val(data["datos"]["user_id"]);
+                    $('#Id').val(data["datos"]["Id"]);
                     $('#txtNuevaContraseña').val(data["datos"]["Contrasenia"]);
                     $('#txtNuevaContraseña2').val(data["datos"]["Contrasenia"]);
                 }
@@ -483,7 +486,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <input type="hidden" id="user_id" name="user_id" />
+                <input type="hidden" id="Id" name="Id" />
                 <label>Nombre</label>
                 <input type="text" id="txtEditarNombre" name="txtEditarNombre" class="form-control">
                 <label>Apellidos</label>
@@ -530,7 +533,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <input type="hidden" id="user_id" name="user_id" />
+                <input type="hidden" id="Id" name="Id" />
                 <label>Nueva Contraseña</label>
                 <input type="password" id="txtNuevaContraseña" name="txtNuevaContraseña" class="form-control">
                 <label>Repite contraseña</label>

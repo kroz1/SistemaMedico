@@ -101,5 +101,70 @@ namespace SistemaMedico.Controllers
 
             return Json(new { status = true, mensaje = "Datos guardados", datos = usuarios });
         }
+
+        public JsonResult guardarNuevaContrasena(cUsuarios objUsuario)
+        {
+            Usuarios o = new Usuarios();
+            if(objUsuario.Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id viene en 0" });
+            }
+
+            if(objUsuario.Contrasenia == null)
+            {
+                return Json(new { status = false, mensaje = "La contraseña viene vacia" });
+            }
+            o = db.Usuarios.Where(a => a.Id == objUsuario.Id).FirstOrDefault();
+            if(o == null)
+            {
+                return Json(new { status = false, mensaje = "No existe el registro" });
+            }
+
+            o.Contrasenia = objUsuario.Contrasenia;
+            db.Usuarios.Attach(o);
+            db.Entry(o).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return Json(new { status = true, mensaje = "Datos guardados", datos = o });
+        }
+
+        public JsonResult eliminar(int Id)
+        {
+            Usuarios o = new Usuarios();
+            if(Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id esta en 0" });
+            }
+
+            o = db.Usuarios.Where(a => a.Id == Id).FirstOrDefault();
+            if(o == null)
+            {
+                return Json(new { status = false, mensaje = "No existe el registro" });
+            }
+            else
+            {
+                db.Usuarios.Attach(o);
+                db.Usuarios.Remove(o);
+                db.SaveChanges();
+
+                return Json(new { status = true, mensaje = "Usuario eliminado" });
+            }
+        }
+
+        public JsonResult editar(int Id)
+        {
+            Usuarios o = new Usuarios();
+            if (Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id esta en 0" });
+            }
+
+            o = db.Usuarios.Where(a => a.Id == Id).FirstOrDefault();
+            if (o == null)
+            {
+                return Json(new { status = false, mensaje = "No existe el registro" });
+            }
+            return Json(new { status = true, mensaje = "Datos cargados", datos = o });
+        }
     }
 }
