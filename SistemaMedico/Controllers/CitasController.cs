@@ -22,7 +22,8 @@ namespace SistemaMedico.Controllers
                               select new cPacientes
                               {
                                   Id = a.Id,
-                                  Nombre = a.Nombre
+                                  Nombre = a.Nombre,
+                                  Apellido = a.Apellido
                               }).ToList();
 
             /*
@@ -33,7 +34,7 @@ namespace SistemaMedico.Controllers
             {
                 return new SelectListItem()
                 {
-                    Text = a.Nombre.ToString(),
+                    Text = a.Nombre.ToString() + " " + a.Apellido.ToString(),
                     Value = a.Id.ToString(),
                     Selected = false
                 };
@@ -49,7 +50,8 @@ namespace SistemaMedico.Controllers
                            select new cMedicos
                            {
                                Id = a.Id,
-                               Nombre = a.Nombre
+                               Nombre = a.Nombre,
+                               Apellido = a.Apellido
                            }).ToList();
 
             /*
@@ -60,7 +62,7 @@ namespace SistemaMedico.Controllers
             {
                 return new SelectListItem()
                 {
-                    Text = a.Nombre.ToString(),
+                    Text = a.Nombre.ToString() + " " + a.Apellido.ToString(),
                     Value = a.Id.ToString(),
                     Selected = false
                 };
@@ -68,7 +70,7 @@ namespace SistemaMedico.Controllers
 
             ViewBag.itemsMedico = itemsMedico; //Viewbag se utiliza para enviar datos a la vista
 
-            //=================== MEDICO =========================
+            //=================== CONSULTORIO =========================
             List<cConsultorios> listaConsultorio = null;
             /*mediante entity framework, realizamos la consulta a la tabla que queramos mostrar 
             los datos de la tabla*/
@@ -122,6 +124,88 @@ namespace SistemaMedico.Controllers
                 mensaje = "Datos cargados",
                 data = listaCitas
             });
+        }
+
+        public JsonResult guardar(cCitas citas)
+        {
+            Citas objCitas = new Citas();
+
+            //if (citas.Fecha.Equals("01/01/0001 12:00:00 a. m."))
+            //{
+            //    return Json(new { status = false, mensaje = "La fecha esta vacia" });
+            //}
+
+            if (citas.Id != 0)
+            {
+                //editar
+                objCitas = db.Citas.Where(a => a.Id == citas.Id).FirstOrDefault();
+                if(objCitas == null)
+                {
+                    return Json(new { status = false, mensaje = "No existe el registro" });
+                }
+                else
+                {
+                    objCitas.Fecha = citas.Fecha;
+                    objCitas.Hora = citas.Hora;
+                    objCitas.Id_paciente = citas.Id_paciente;
+                    objCitas.Id_medico = citas.Id_medico;
+                    objCitas.Id_consultorio = citas.Id_consultorio;
+                    objCitas.Estado = citas.Estado;
+                    objCitas.Observacion = citas.Observacion;
+
+                    db.Citas.Attach(objCitas);
+                    db.Entry(objCitas).State = System.Data.Entity.EntityState.Modified;
+                }
+            }
+            else
+            {
+                //nuevo
+                objCitas.Fecha = citas.Fecha;
+                objCitas.Hora = citas.Hora;
+                objCitas.Id_paciente = citas.Id_paciente;
+                objCitas.Id_medico = citas.Id_medico;
+                objCitas.Id_consultorio = citas.Id_consultorio;
+                objCitas.Estado = citas.Estado;
+                objCitas.Observacion = citas.Observacion;
+
+                db.Citas.Add(objCitas);
+            }
+            db.SaveChanges();
+            return Json(new { status = true, mensaje = "Datos guardados", datos = objCitas });
+        }
+
+        public JsonResult eliminar(int Id)
+        {
+            Citas objCitas = new Citas();
+            if(Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id esta en 0" });
+            }
+            objCitas = db.Citas.Where(a => a.Id == Id).FirstOrDefault();
+            if(objCitas == null)
+            {
+                return Json(new { status = false, mensaje = "No existe el registro" });
+            }
+            db.Citas.Attach(objCitas);
+            db.Citas.Remove(objCitas);
+            db.SaveChanges();
+
+            return Json(new { status = true, mensaje = "Registro eliminado" });
+        }
+
+        public JsonResult editar(int Id)
+        {
+            Citas objCitas = new Citas();
+            if (Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id esta en 0" });
+            }
+            objCitas = db.Citas.Where(a => a.Id == Id).FirstOrDefault();
+            if (objCitas == null)
+            {
+                return Json(new { status = false, mensaje = "No existe el registro" });
+            }
+            return Json(new { status = true, mensaje = "Registro cargado", datos = objCitas });
         }
     }
 }

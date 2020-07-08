@@ -5,6 +5,7 @@ using System.Web;
 
 namespace SistemaMedico.cModels
 {
+    
     public class cConsultorios
     {
         public int Id { get; set; }

@@ -11,7 +11,9 @@ namespace SistemaMedico.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
+    [DataContract(IsReference = true)]
     public partial class Citas
     {
         public int Id { get; set; }

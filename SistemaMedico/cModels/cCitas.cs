@@ -1,10 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
 namespace SistemaMedico.cModels
 {
+    
     public class cCitas
     {
         public int Id { get; set; }
@@ -15,5 +16,6 @@ namespace SistemaMedico.cModels
         public int Id_consultorio { get; set; }
         public string Estado { get; set; }
         public string Observacion { get; set; }
+
     }
 }
