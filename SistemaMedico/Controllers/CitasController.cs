@@ -128,12 +128,7 @@ namespace SistemaMedico.Controllers
 
         public JsonResult guardar(cCitas citas)
         {
-            Citas objCitas = new Citas();
-
-            //if (citas.Fecha.Equals("01/01/0001 12:00:00 a. m."))
-            //{
-            //    return Json(new { status = false, mensaje = "La fecha esta vacia" });
-            //}
+            Citas objCitas = new Citas();           
 
             if (citas.Id != 0)
             {
@@ -195,17 +190,34 @@ namespace SistemaMedico.Controllers
 
         public JsonResult editar(int Id)
         {
-            Citas objCitas = new Citas();
-            if (Id == 0)
+            try
             {
-                return Json(new { status = false, mensaje = "El id esta en 0" });
+                Citas objCitas = new Citas();
+                if (Id == 0)
+                {
+                    return Json(new { status = false, mensaje = "El id esta en 0" });
+                }
+                objCitas = db.Citas.Where(a => a.Id == Id).FirstOrDefault();
+                if (objCitas == null)
+                {
+                    return Json(new { status = false, mensaje = "No existe el registro" });
+                }
+                return Json(new { status = true, mensaje = "Registro cargado", datos = objCitas });
             }
-            objCitas = db.Citas.Where(a => a.Id == Id).FirstOrDefault();
-            if (objCitas == null)
+            catch (Exception error)
             {
-                return Json(new { status = false, mensaje = "No existe el registro" });
+                string mensaje = error.Message.ToString();
+                if (error.InnerException != null)
+                {
+                    mensaje += Environment.NewLine + error.InnerException.ToString();
+                }
+                return Json(new { status = false, mensaje = mensaje });
+                //return JsonConvert.SerializeObject(new
+                //{
+                //    status = false,
+                //    mensaje = mensaje
+                //});
             }
-            return Json(new { status = true, mensaje = "Registro cargado", datos = objCitas });
         }
     }
 }

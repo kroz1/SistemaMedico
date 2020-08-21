@@ -198,6 +198,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\BoxInfo.css" />
     <Content Include="css\styles.css" />
     <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap.css" />
     <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
