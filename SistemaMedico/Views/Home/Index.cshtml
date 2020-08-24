@@ -3,38 +3,150 @@
 }
 
 <link rel="stylesheet" href="~/css/BoxInfo.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 
 <br />
 <br />
 
-<div class="card">
+@*<div class="card">
     <div class="card-header">
         <strong>Panel de Control</strong>  <small>Version 1.0</small>
     </div>
-    <div class="card-body">
+    <div class="card-body">           
+        <div class="card">
+            <div class="col-md-8">
+                <canvas id="ChartCitas"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <div class="alert-wrap">
+                <div class="alert alert-success">
+                    <i class="fas fa-medkit fa-2x"></i> <strong>CITAS TOTALES:</strong> 964.00
+                </div>
+
+                <div class="alert alert-info">
+                    <i class="fas fa-users fa-2x"></i> <strong>PACIENTES TOTALES:</strong> 3.00
+                </div>
+
+                <div class="alert alert-warning">
+                    <i class="fas fa-user-md fa-2x"></i> <strong>MÉDICOS TOTALES:</strong> 25.00
+                </div>
+
+                <div class="alert alert-danger">
+                    <i class="fas fa-hospital-alt fa-2x"></i> <strong>CONSULTORIOS TOTALES:</strong> 47.00
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>*@
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <strong>Panel de Control</strong>  <small>Version 1.0</small>
+            </div>
+            <div class="card-body">
+                <div class="col-md-8">
+                    <canvas id="ChartCitas"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col">
         <div class="alert-wrap">
             <div class="alert alert-success">
-                @*<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>*@
-                <i class="fas fa-medkit"></i> <strong>CITAS TOTALES:</strong> 964.00
+                <i class="fas fa-medkit fa-2x"></i> <strong>CITAS TOTALES:</strong> 964.00
             </div>
 
             <div class="alert alert-info">
-                <i class="fas fa-users"></i> <strong>PACIENTES TOTALES:</strong> 3.00
+                <i class="fas fa-users fa-2x"></i> <strong>PACIENTES TOTALES:</strong> 3.00
             </div>
 
             <div class="alert alert-warning">
-                <i class="fas fa-user-md"></i> <strong>MÉDICOS TOTALES:</strong> 25.00
+                <i class="fas fa-user-md fa-2x"></i> <strong>MÉDICOS TOTALES:</strong> 25.00
             </div>
 
             <div class="alert alert-danger">
-                <i class="fas fa-hospital-alt"></i> <strong>CONSULTORIOS TOTALES:</strong> 47.00 @*<a href="#" class="alert-link">Take Action</a> !!*@
+                <i class="fas fa-hospital-alt fa-2x"></i> <strong>CONSULTORIOS TOTALES:</strong> 47.00
             </div>
         </div>
     </div>
 </div>
 
 
+@*<div class="container">
+    <div class="row my-3">
+        <div class="col">
+            <h4>Bootstrap 4 Chart.js</h4>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-6 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chLine"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chBar"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-2">
+        <div class="col-md-4 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chDonut1"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chDonut2"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-1">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chDonut3"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
 
-
-
-
+<script>
+    var ctx = document.getElementById("ChartCitas").getContext("2d");
+    var MyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            datasets: [{
+                label: 'Numero de citas',
+                data: [20, 36, 51, 10, 9, 78, 64, 18, 78, 85, 11, 3],
+                backgroundColor: [
+                    'rgb(0, 153, 255, 0.5)',
+                    'rgb(163, 0, 204, 0.5)',
+                    'rgb(0, 51, 17, 0.5)',
+                    'rgb(255, 102, 0, 0.5)',
+                    'rgb(179, 179, 0, 0.5)',
+                    'rgb(255, 0, 0, 0.5)',
+                    'rgb(0, 255, 255, 0.5)',
+                    'rgb(204, 51, 0, 0.5)',
+                    'rgb(68, 204, 0, 0.5)',
+                    'rgb(0, 0, 204, 0.5)',
+                    'rgb(102, 0, 102, 0.5)',
+                    'rgb(102, 153, 255, 0.5)'
+                ]
+            }]
+        }
+    });
+</script>
