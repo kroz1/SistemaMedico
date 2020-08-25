@@ -5,56 +5,29 @@
 <link rel="stylesheet" href="~/css/BoxInfo.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 
+<!--datables CSS básico-->
+<link rel="stylesheet" href="~/DataTables/datatables.min.css" />
+<!--datables estilo bootstrap 4 CSS-->
+<link rel="stylesheet" href="~/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css" />
+
+<link rel="stylesheet" href="~/SweetAlert2/sweetalert2.min.css" />
+
 <br />
 <br />
-
-@*<div class="card">
-    <div class="card-header">
-        <strong>Panel de Control</strong>  <small>Version 1.0</small>
-    </div>
-    <div class="card-body">           
-        <div class="card">
-            <div class="col-md-8">
-                <canvas id="ChartCitas"></canvas>
-            </div>
-        </div>
-        <div class="card">
-            <div class="alert-wrap">
-                <div class="alert alert-success">
-                    <i class="fas fa-medkit fa-2x"></i> <strong>CITAS TOTALES:</strong> 964.00
-                </div>
-
-                <div class="alert alert-info">
-                    <i class="fas fa-users fa-2x"></i> <strong>PACIENTES TOTALES:</strong> 3.00
-                </div>
-
-                <div class="alert alert-warning">
-                    <i class="fas fa-user-md fa-2x"></i> <strong>MÉDICOS TOTALES:</strong> 25.00
-                </div>
-
-                <div class="alert alert-danger">
-                    <i class="fas fa-hospital-alt fa-2x"></i> <strong>CONSULTORIOS TOTALES:</strong> 47.00
-                </div>
-            </div>
-        </div>
-    </div>  
-</div>*@
 
 <div class="row">
-    <div class="col">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header">
                 <strong>Panel de Control</strong>  <small>Version 1.0</small>
             </div>
             <div class="card-body">
-                <div class="col-md-8">
-                    <canvas id="ChartCitas"></canvas>
-                </div>
+                <canvas id="ChartCitas"></canvas>
             </div>
-
         </div>
+
     </div>
-    <div class="col">
+    <div class="col-sm-4">
         <div class="alert-wrap">
             <div class="alert alert-success">
                 <i class="fas fa-medkit fa-2x"></i> <strong>CITAS TOTALES:</strong> 964.00
@@ -75,53 +48,58 @@
     </div>
 </div>
 
+<br />
+<br />
 
-@*<div class="container">
-    <div class="row my-3">
-        <div class="col">
-            <h4>Bootstrap 4 Chart.js</h4>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-md-6 py-1">
-            <div class="card">
-                <div class="card-body">
-                    <canvas id="chLine"></canvas>
-                </div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <strong>Últimas citas</strong>
             </div>
-        </div>
-        <div class="col-md-6 py-1">
-            <div class="card">
-                <div class="card-body">
-                    <canvas id="chBar"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row py-2">
-        <div class="col-md-4 py-1">
-            <div class="card">
-                <div class="card-body">
-                    <canvas id="chDonut1"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 py-1">
-            <div class="card">
-                <div class="card-body">
-                    <canvas id="chDonut2"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 py-1">
-            <div class="card">
-                <div class="card-body">
-                    <canvas id="chDonut3"></canvas>
-                </div>
+            <div class="card-body">
+                <!--Table-->
+                <table id="tablaCitas" class="table table-hover table-fixed" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> Paciente </th>
+                            <th> Fecha </th>
+                            <th> Hora </th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+                <!--Table-->
             </div>
         </div>
     </div>
-</div>*@
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <strong>Últimos Pacientes</strong>
+            </div>
+            <div class="card-body">
+                <!--Table-->
+                <table id="tablaPacientes" class="table table-hover table-fixed" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th> Paciente </th>
+                            <th> Teléfono </th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+                <!--Table-->
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     var ctx = document.getElementById("ChartCitas").getContext("2d");
@@ -150,3 +128,8 @@
         }
     });
 </script>
+
+
+
+<script type="text/javascript" src="~/DataTables/datatables.min.js" defer></script>
+<script src="~/SweetAlert2/sweetalert2.all.min.js"></script>
