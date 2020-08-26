@@ -9,8 +9,109 @@
 <link rel="stylesheet" href="~/DataTables/datatables.min.css" />
 <!--datables estilo bootstrap 4 CSS-->
 <link rel="stylesheet" href="~/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css" />
-
 <link rel="stylesheet" href="~/SweetAlert2/sweetalert2.min.css" />
+
+<script src="~/jquery/jquery-3.3.1.min.js"></script>
+<script src="~/popper/popper.min.js"></script>
+<script src="~/Bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" class="init">
+     var table;
+    $(document).ready(function () {
+        var cargandoGeneral = Swal.fire({
+            title: 'Cargando datos ...',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            showConfirmButton: false
+        });
+        table = $('#tablaCitas').DataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
+            },
+
+            ajax: {
+                type: "POST",
+                url: '@Url.Action("listarCitas", "Home")',
+
+                complete: function (data) {
+                    cargandoGeneral.close();
+                }
+            },
+
+            columns: [
+                {
+                    "name": "Id",
+                    "render": function (data, type, row, meta) {
+                        return row.Id;
+                    },
+                },
+                {
+                    "name": "Id_paciente",
+                    "render": function (data, type, row, meta) {
+                        return row.Id_paciente;
+                    },
+                },
+                {
+                    "name": "Fecha",
+                    "render": function (data, type, row, meta) {
+                        var fecha = "";
+                        if (row.Fecha) {
+                            fecha = row.Fecha == '0001-01-01T00:00:00' ? '' : row.Fecha.split('T')[0].split('-').reverse().join('/');
+                        }
+                        return fecha;
+                    },
+                },
+                {
+                    "name": "Hora",
+                    "render": function (data, type, row, meta) {
+                        return row.Hora;
+                    },
+                },
+            ]
+        });
+    })
+</script>
+
+<script type="text/javascript" class="init">
+     var table;
+    $(document).ready(function () {
+        var cargandoGeneral = Swal.fire({
+            title: 'Cargando datos ...',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            showConfirmButton: false
+        });
+        table = $('#tablaPacientes').DataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
+            },
+
+            ajax: {
+                type: "POST",
+                url: '@Url.Action("listarPacientes", "Home")',
+
+                complete: function (data) {
+                    cargandoGeneral.close();
+                }
+            },
+
+            columns: [
+                {
+                    "name": "Nombre",
+                    "render": function (data, type, row, meta) {
+                        return row.Nombre + " " + row.Apellido;
+                    },
+                },
+                {
+                    "name": "Telefono",
+                    "render": function (data, type, row, meta) {
+                        return row.Telefono;
+                    },
+                },
+            ]
+        });
+    })
+</script>
 
 <br />
 <br />
