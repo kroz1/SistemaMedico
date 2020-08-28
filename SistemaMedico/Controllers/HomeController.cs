@@ -14,6 +14,15 @@ namespace SistemaMedico.Controllers
         public Models.citas_medicasEntities db = new Models.citas_medicasEntities();
         public ActionResult Index()
         {
+            var citas = db.Citas.Count();
+            ViewBag.citas = citas;
+            var numPacientes = db.Pacientes.Count();
+            ViewBag.items = numPacientes;
+            var medicos = db.Medicos.Count();
+            ViewBag.medicos = medicos;
+            var consultorios = db.Consultorios.Count();
+            ViewBag.consultorios = consultorios;
+
             return View();
         }
 
