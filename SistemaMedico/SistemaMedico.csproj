@@ -201,7 +201,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\BoxInfo.css" />
     <Content Include="css\Login.css" />
+    <Content Include="css\main.css" />
     <Content Include="css\styles.css" />
+    <Content Include="css\util.css" />
     <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap.css" />
     <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
     <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.css" />
@@ -239,10 +241,17 @@
     <Content Include="dist\password.html" />
     <Content Include="dist\register.html" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\Linearicons-Free-v1.0.0\icon-font.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\avatar-01.jpg" />
+    <Content Include="images\icons\favicon.ico" />
+    <Content Include="images\icons\icon-google.png" />
+    <Content Include="images\img-01.jpg" />
     <Content Include="jquery\jquery-3.3.1.min.js" />
+    <Content Include="js\main.js" />
     <Content Include="js\scripts.js" />
     <Content Include="Models\ModelMedico.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -288,6 +297,10 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="SweetAlert2\sweetalert2.all.min.js" />
     <Content Include="SweetAlert2\sweetalert2.min.css" />
+    <Content Include="vendor\animate\animate.css" />
+    <Content Include="vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="vendor\select2\select2.min.css" />
+    <Content Include="vendor\select2\select2.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -309,6 +322,7 @@
     <Content Include="Views\Consultorios\Index.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\LoginNuevo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
