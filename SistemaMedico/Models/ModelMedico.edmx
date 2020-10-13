@@ -4,170 +4,196 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="citas_medicasModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="citas_medicasModelStoreContainer">
-    <EntitySet Name="Citas" EntityType="citas_medicasModel.Store.Citas" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Consultorios" EntityType="citas_medicasModel.Store.Consultorios" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Especialidades" EntityType="citas_medicasModel.Store.Especialidades" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Medicos" EntityType="citas_medicasModel.Store.Medicos" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Pacientes" EntityType="citas_medicasModel.Store.Pacientes" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="PerfilEmpresa" EntityType="citas_medicasModel.Store.PerfilEmpresa" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Usuarios" EntityType="citas_medicasModel.Store.Usuarios" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_Citas_Consultorios" Association="citas_medicasModel.Store.FK_Citas_Consultorios">
-      <End Role="Consultorios" EntitySet="Consultorios" />
-      <End Role="Citas" EntitySet="Citas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Citas_Medicos" Association="citas_medicasModel.Store.FK_Citas_Medicos">
-      <End Role="Medicos" EntitySet="Medicos" />
-      <End Role="Citas" EntitySet="Citas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Citas_Pacientes" Association="citas_medicasModel.Store.FK_Citas_Pacientes">
-      <End Role="Pacientes" EntitySet="Pacientes" />
-      <End Role="Citas" EntitySet="Citas" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Medicos_Especialidades" Association="citas_medicasModel.Store.FK_Medicos_Especialidades">
-      <End Role="Especialidades" EntitySet="Especialidades" />
-      <End Role="Medicos" EntitySet="Medicos" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Citas">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Fecha" Type="datetime" Nullable="false" />
-    <Property Name="Hora" Type="varchar" Nullable="false" MaxLength="10" />
-    <Property Name="Id_paciente" Type="int" Nullable="false" />
-    <Property Name="Id_medico" Type="int" Nullable="false" />
-    <Property Name="Id_consultorio" Type="int" Nullable="false" />
-    <Property Name="Estado" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Observacion" Type="varchar" Nullable="false" MaxLength="250" />
-  </EntityType>
-  <EntityType Name="Consultorios">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Estado" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Agregado" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Especialidades">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Estado" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Agregado" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Medicos">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Apellido" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Telefono" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="Direccion" Type="varchar" Nullable="false" MaxLength="250" />
-    <Property Name="correo" Type="varchar" Nullable="false" MaxLength="250" />
-    <Property Name="Especialidad" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Id_especialidad" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Pacientes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Apellido" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Edad" Type="varchar" Nullable="false" MaxLength="10" />
-    <Property Name="Telefono" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="Direccion" Type="varchar" Nullable="false" MaxLength="250" />
-    <Property Name="Correo" Type="varchar" Nullable="true" MaxLength="100" />
-    <Property Name="Genero" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="FechaNacimiento" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="PerfilEmpresa">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="NumeroRegistro" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Correo" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Telefono" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Moneda" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="ZonaHoraria" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Logo" Type="varbinary(max)" Nullable="true" />
-    <Property Name="Calle" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Ciudad" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="CodigoPostal" Type="varchar" Nullable="false" MaxLength="10" />
-    <Property Name="Pais" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Usuarios">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Apellido" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Usuario" Type="varchar" Nullable="false" MaxLength="100" />
-    <Property Name="Correo" Type="varchar" Nullable="false" MaxLength="150" />
-    <Property Name="Grupo" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Agregado" Type="datetime" Nullable="false" />
-    <Property Name="Estado" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Contrasenia" Type="varchar" Nullable="false" MaxLength="255" />
-  </EntityType>
-  <Association Name="FK_Citas_Consultorios">
-    <End Role="Consultorios" Type="citas_medicasModel.Store.Consultorios" Multiplicity="1" />
-    <End Role="Citas" Type="citas_medicasModel.Store.Citas" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Consultorios">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Citas">
-        <PropertyRef Name="Id_consultorio" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Citas_Medicos">
-    <End Role="Medicos" Type="citas_medicasModel.Store.Medicos" Multiplicity="1" />
-    <End Role="Citas" Type="citas_medicasModel.Store.Citas" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Medicos">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Citas">
-        <PropertyRef Name="Id_medico" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Citas_Pacientes">
-    <End Role="Pacientes" Type="citas_medicasModel.Store.Pacientes" Multiplicity="1" />
-    <End Role="Citas" Type="citas_medicasModel.Store.Citas" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Pacientes">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Citas">
-        <PropertyRef Name="Id_paciente" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Medicos_Especialidades">
-    <End Role="Especialidades" Type="citas_medicasModel.Store.Especialidades" Multiplicity="1" />
-    <End Role="Medicos" Type="citas_medicasModel.Store.Medicos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Especialidades">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Medicos">
-        <PropertyRef Name="Id_especialidad" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="citas_medicasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Citas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Hora" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Id_paciente" Type="int" Nullable="false" />
+          <Property Name="Id_medico" Type="int" Nullable="false" />
+          <Property Name="Id_consultorio" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Observacion" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Consultorios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Agregado" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Especialidades">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Agregado" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medicos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Especialidad" Type="varchar" MaxLength="50" />
+          <Property Name="Id_especialidad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pacientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Edad" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Direccion" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="100" />
+          <Property Name="Genero" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PerfilEmpresa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumeroRegistro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Moneda" Type="varchar" MaxLength="50" />
+          <Property Name="ZonaHoraria" Type="varchar" MaxLength="50" />
+          <Property Name="Logo" Type="image" />
+          <Property Name="Calle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ciudad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodigoPostal" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Pais" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SistemaActividad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Actividad" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaActividad" Type="datetime" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Grupo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Agregado" Type="datetime" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contrasenia" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Citas_Consultorios">
+          <End Role="Consultorios" Type="Self.Consultorios" Multiplicity="1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consultorios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="Id_consultorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Citas_Medicos">
+          <End Role="Medicos" Type="Self.Medicos" Multiplicity="1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="Id_medico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Citas_Pacientes">
+          <End Role="Pacientes" Type="Self.Pacientes" Multiplicity="1" />
+          <End Role="Citas" Type="Self.Citas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pacientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Citas">
+              <PropertyRef Name="Id_paciente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medicos_Especialidades">
+          <End Role="Especialidades" Type="Self.Especialidades" Multiplicity="1" />
+          <End Role="Medicos" Type="Self.Medicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especialidades">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Medicos">
+              <PropertyRef Name="Id_especialidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SistemaActividad_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="SistemaActividad" Type="Self.SistemaActividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SistemaActividad">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="citas_medicasModelStoreContainer">
+          <EntitySet Name="Citas" EntityType="Self.Citas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consultorios" EntityType="Self.Consultorios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Especialidades" EntityType="Self.Especialidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicos" EntityType="Self.Medicos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pacientes" EntityType="Self.Pacientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PerfilEmpresa" EntityType="Self.PerfilEmpresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SistemaActividad" EntityType="Self.SistemaActividad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Citas_Consultorios" Association="Self.FK_Citas_Consultorios">
+            <End Role="Consultorios" EntitySet="Consultorios" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Citas_Medicos" Association="Self.FK_Citas_Medicos">
+            <End Role="Medicos" EntitySet="Medicos" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Citas_Pacientes" Association="Self.FK_Citas_Pacientes">
+            <End Role="Pacientes" EntitySet="Pacientes" />
+            <End Role="Citas" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medicos_Especialidades" Association="Self.FK_Medicos_Especialidades">
+            <End Role="Especialidades" EntitySet="Especialidades" />
+            <End Role="Medicos" EntitySet="Medicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SistemaActividad_Usuarios" Association="Self.FK_SistemaActividad_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="SistemaActividad" EntitySet="SistemaActividad" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="citas_medicasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -267,6 +293,7 @@
           <Property Name="Agregado" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SistemaActividads" Relationship="citas_medicasModel.FK_SistemaActividad_Usuarios" FromRole="Usuarios" ToRole="SistemaActividad" />
         </EntityType>
         <Association Name="FK_Citas_Consultorios">
           <End Role="Consultorios" Type="Self.Consultorios" Multiplicity="1" />
@@ -340,7 +367,34 @@
             <End Role="Especialidades" EntitySet="Especialidades" />
             <End Role="Medicos" EntitySet="Medicos" />
           </AssociationSet>
+          <EntitySet Name="SistemaActividads" EntityType="citas_medicasModel.SistemaActividad" />
+          <AssociationSet Name="FK_SistemaActividad_Usuarios" Association="citas_medicasModel.FK_SistemaActividad_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="SistemaActividad" EntitySet="SistemaActividads" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="SistemaActividad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Actividad" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActividad" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="citas_medicasModel.FK_SistemaActividad_Usuarios" FromRole="SistemaActividad" ToRole="Usuarios" />
+        </EntityType>
+        <Association Name="FK_SistemaActividad_Usuarios">
+          <End Type="citas_medicasModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="citas_medicasModel.SistemaActividad" Role="SistemaActividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SistemaActividad">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -443,6 +497,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+          <EntitySetMapping Name="SistemaActividads">
+            <EntityTypeMapping TypeName="citas_medicasModel.SistemaActividad">
+              <MappingFragment StoreEntitySet="SistemaActividad">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="FechaActividad" ColumnName="FechaActividad" />
+                <ScalarProperty Name="Actividad" ColumnName="Actividad" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -456,7 +520,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />

@@ -14,6 +14,12 @@ namespace SistemaMedico.Models
     
     public partial class Usuarios
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuarios()
+        {
+            this.SistemaActividads = new HashSet<SistemaActividad>();
+        }
+    
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -23,5 +29,8 @@ namespace SistemaMedico.Models
         public System.DateTime Agregado { get; set; }
         public string Estado { get; set; }
         public string Contrasenia { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SistemaActividad> SistemaActividads { get; set; }
     }
 }

@@ -12,19 +12,13 @@ namespace SistemaMedico.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Citas
+    public partial class SistemaActividad
     {
         public int Id { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public string Hora { get; set; }
-        public int Id_paciente { get; set; }
-        public int Id_medico { get; set; }
-        public int Id_consultorio { get; set; }
-        public string Estado { get; set; }
-        public string Observacion { get; set; }
+        public string Actividad { get; set; }
+        public System.DateTime FechaActividad { get; set; }
+        public int id_usuario { get; set; }
     
-        public virtual Consultorios Consultorios { get; set; }
-        public virtual Medicos Medicos { get; set; }
-        public virtual Pacientes Pacientes { get; set; }
+        public virtual Usuarios Usuario { get; set; }
     }
 }

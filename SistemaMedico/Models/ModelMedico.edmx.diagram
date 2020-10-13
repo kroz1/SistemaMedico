@@ -11,11 +11,13 @@
         <EntityTypeShape EntityType="citas_medicasModel.Medicos" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="citas_medicasModel.Pacientes" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="citas_medicasModel.PerfilEmpresa" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="citas_medicasModel.Usuarios" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="citas_medicasModel.Usuarios" Width="1.75" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="citas_medicasModel.FK_Citas_Consultorios" ManuallyRouted="false" />
         <AssociationConnector Association="citas_medicasModel.FK_Citas_Medicos" ManuallyRouted="false" />
         <AssociationConnector Association="citas_medicasModel.FK_Citas_Pacientes" ManuallyRouted="false" />
         <AssociationConnector Association="citas_medicasModel.FK_Medicos_Especialidades" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="citas_medicasModel.SistemaActividad" Width="1.875" PointX="10" PointY="1.25" />
+        <AssociationConnector Association="citas_medicasModel.FK_SistemaActividad_Usuarios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

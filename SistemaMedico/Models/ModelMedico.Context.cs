@@ -32,5 +32,6 @@ namespace SistemaMedico.Models
         public virtual DbSet<Pacientes> Pacientes { get; set; }
         public virtual DbSet<PerfilEmpresa> PerfilEmpresa { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<SistemaActividad> SistemaActividads { get; set; }
     }
 }

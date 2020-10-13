@@ -180,6 +180,9 @@
     <Compile Include="Models\PerfilEmpresa.cs">
       <DependentUpon>ModelMedico.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SistemaActividad.cs">
+      <DependentUpon>ModelMedico.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Usuarios.cs">
       <DependentUpon>ModelMedico.tt</DependentUpon>
     </Compile>

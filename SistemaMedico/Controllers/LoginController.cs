@@ -35,6 +35,16 @@ namespace SistemaMedico.Controllers
 
             if(usuarios != null) 
             {
+                Session["nombreCompleto"] = usuarios.Nombre;
+                Session["correoElectronico"] = usuarios.Correo;
+                Session["id"] = usuarios.Id;
+
+                if(usuarios.Id != -1)
+                {
+                    SistemaActividad oSistemaActividad = new SistemaActividad();
+                    oSistemaActividad.Actividad = "Ingreso al sistema";
+                    oSistemaActividad.FechaActividad = DateTime.Now;
+                }
                 //Si esta registrado el usuario
                 return RedirectToAction("Index", "Home");
             }
