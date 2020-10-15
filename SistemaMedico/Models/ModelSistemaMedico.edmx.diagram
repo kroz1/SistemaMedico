@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ff89d448fd8d4e939dcbf2d7871c0195" Name="Diagram1">
+      <Diagram DiagramId="839a76879020417b9e31b96fe22d7a74" Name="Diagram1">
         <EntityTypeShape EntityType="citas_medicasModel.Citas" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="citas_medicasModel.Consultorios" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="citas_medicasModel.Especialidades" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="citas_medicasModel.Medicos" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="citas_medicasModel.Pacientes" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="citas_medicasModel.PerfilEmpresa" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="citas_medicasModel.Usuarios" Width="1.75" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="citas_medicasModel.PerfilEmpresa" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="citas_medicasModel.SistemaActividad" Width="1.5" PointX="8" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="citas_medicasModel.Usuarios" Width="1.5" PointX="5.75" PointY="6" IsExpanded="true" />
         <AssociationConnector Association="citas_medicasModel.FK_Citas_Consultorios" ManuallyRouted="false" />
         <AssociationConnector Association="citas_medicasModel.FK_Citas_Medicos" ManuallyRouted="false" />
         <AssociationConnector Association="citas_medicasModel.FK_Citas_Pacientes" ManuallyRouted="false" />
         <AssociationConnector Association="citas_medicasModel.FK_Medicos_Especialidades" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="citas_medicasModel.SistemaActividad" Width="1.875" PointX="10" PointY="1.25" />
-        <AssociationConnector Association="citas_medicasModel.FK_SistemaActividad_Usuarios" />
+        <AssociationConnector Association="citas_medicasModel.FK_SistemaActividad_Usuarios" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

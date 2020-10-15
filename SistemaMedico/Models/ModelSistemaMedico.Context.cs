@@ -13,10 +13,10 @@ namespace SistemaMedico.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class citas_medicasEntities : DbContext
+    public partial class citas_medicasEntities1 : DbContext
     {
-        public citas_medicasEntities()
-            : base("name=citas_medicasEntities")
+        public citas_medicasEntities1()
+            : base("name=citas_medicasEntities1")
         {
         }
     
@@ -31,7 +31,7 @@ namespace SistemaMedico.Models
         public virtual DbSet<Medicos> Medicos { get; set; }
         public virtual DbSet<Pacientes> Pacientes { get; set; }
         public virtual DbSet<PerfilEmpresa> PerfilEmpresa { get; set; }
+        public virtual DbSet<SistemaActividad> SistemaActividad { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
-        public virtual DbSet<SistemaActividad> SistemaActividads { get; set; }
     }
 }

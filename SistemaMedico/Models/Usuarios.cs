@@ -17,7 +17,7 @@ namespace SistemaMedico.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuarios()
         {
-            this.SistemaActividads = new HashSet<SistemaActividad>();
+            this.SistemaActividad = new HashSet<SistemaActividad>();
         }
     
         public int Id { get; set; }
@@ -31,6 +31,6 @@ namespace SistemaMedico.Models
         public string Contrasenia { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SistemaActividad> SistemaActividads { get; set; }
+        public virtual ICollection<SistemaActividad> SistemaActividad { get; set; }
     }
 }

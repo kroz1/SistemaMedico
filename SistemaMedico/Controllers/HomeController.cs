@@ -11,7 +11,7 @@ namespace SistemaMedico.Controllers
 {
     public class HomeController : Controller
     {
-        public Models.citas_medicasEntities db = new Models.citas_medicasEntities();
+        public Models.citas_medicasEntities1 db = new Models.citas_medicasEntities1();
         public ActionResult Index()
         {
             var citas = db.Citas.Count();

@@ -5,12 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using SistemaMedico.cModels;
 using SistemaMedico.Models;
+using SistemaMedico.Clases;
 
 namespace SistemaMedico.Controllers
 {
     public class LoginController : Controller
     {
-        public Models.citas_medicasEntities db = new Models.citas_medicasEntities();
+        public Models.citas_medicasEntities1 db = new Models.citas_medicasEntities1();
         public ActionResult LoginNuevo()
         {
             return View();
@@ -44,6 +45,10 @@ namespace SistemaMedico.Controllers
                     SistemaActividad oSistemaActividad = new SistemaActividad();
                     oSistemaActividad.Actividad = "Ingreso al sistema";
                     oSistemaActividad.FechaActividad = DateTime.Now;
+                    oSistemaActividad.Usuarios = cGeneral.oUsuario;
+
+                    db.SistemaActividad.Add(oSistemaActividad);
+                    db.SaveChanges();
                 }
                 //Si esta registrado el usuario
                 return RedirectToAction("Index", "Home");

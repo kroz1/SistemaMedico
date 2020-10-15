@@ -17,8 +17,8 @@ namespace SistemaMedico.Models
         public int Id { get; set; }
         public string Actividad { get; set; }
         public System.DateTime FechaActividad { get; set; }
-        public int id_usuario { get; set; }
+        public Nullable<int> id_usuario { get; set; }
     
-        public virtual Usuarios Usuario { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

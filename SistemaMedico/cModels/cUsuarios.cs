@@ -35,7 +35,7 @@ namespace SistemaMedico.cModels
                 }
                 else
                 {
-                    citas_medicasEntities db = new citas_medicasEntities();
+                    citas_medicasEntities1 db = new citas_medicasEntities1();
                     //query consultar si existe el correo y el password en la base de datos
                     Usuarios registro = (from r in db.Usuarios.Where(
                                             a => a.Correo.Equals(txtUsuario) & a.Contrasenia.Equals(txtPassword))

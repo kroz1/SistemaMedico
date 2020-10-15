@@ -11,7 +11,7 @@ namespace SistemaMedico.Controllers
 {
     public class PacientesController : Controller
     {
-        public Models.citas_medicasEntities db = new Models.citas_medicasEntities();
+        public Models.citas_medicasEntities1 db = new Models.citas_medicasEntities1();
         // GET: Pacientes
         public ActionResult Index()
         {

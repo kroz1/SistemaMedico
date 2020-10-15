@@ -148,43 +148,43 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Citas.cs">
-      <DependentUpon>ModelMedico.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Consultorios.cs">
-      <DependentUpon>ModelMedico.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Especialidades.cs">
-      <DependentUpon>ModelMedico.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Medicos.cs">
-      <DependentUpon>ModelMedico.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMedico.Context.cs">
+    <Compile Include="Models\ModelSistemaMedico.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMedico.Context.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMedico.cs">
+    <Compile Include="Models\ModelSistemaMedico.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMedico.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ModelMedico.Designer.cs">
+    <Compile Include="Models\ModelSistemaMedico.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelMedico.edmx</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Pacientes.cs">
-      <DependentUpon>ModelMedico.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PerfilEmpresa.cs">
-      <DependentUpon>ModelMedico.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SistemaActividad.cs">
-      <DependentUpon>ModelMedico.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuarios.cs">
-      <DependentUpon>ModelMedico.tt</DependentUpon>
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -257,27 +257,19 @@
     <Content Include="jquery\jquery-3.3.1.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\scripts.js" />
-    <Content Include="Models\ModelMedico.Context.tt">
+    <Content Include="Models\ModelSistemaMedico.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMedico.edmx</DependentUpon>
-      <LastGenOutput>ModelMedico.Context.cs</LastGenOutput>
+      <DependentUpon>ModelSistemaMedico.edmx</DependentUpon>
+      <LastGenOutput>ModelSistemaMedico.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ModelMedico.edmx.sql" />
-    <Content Include="Models\ModelMedico.tt">
+    <Content Include="Models\ModelSistemaMedico.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelMedico.edmx</DependentUpon>
-      <LastGenOutput>ModelMedico.cs</LastGenOutput>
+      <DependentUpon>ModelSistemaMedico.edmx</DependentUpon>
+      <LastGenOutput>ModelSistemaMedico.cs</LastGenOutput>
     </Content>
     <Content Include="popper\popper.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\ModelMedico.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelMedico.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ModelMedico.edmx.diagram">
-      <DependentUpon>ModelMedico.edmx</DependentUpon>
-    </Content>
     <Content Include="Bootstrap\css\bootstrap-grid.css.map" />
     <Content Include="Bootstrap\css\bootstrap-grid.min.css.map" />
     <Content Include="Bootstrap\css\bootstrap-reboot.css.map" />
@@ -288,6 +280,13 @@
     <Content Include="Bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="Bootstrap\js\bootstrap.js.map" />
     <Content Include="Bootstrap\js\bootstrap.min.js.map" />
+    <EntityDeploy Include="Models\ModelSistemaMedico.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelSistemaMedico.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelSistemaMedico.edmx.diagram">
+      <DependentUpon>ModelSistemaMedico.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="citas_medicasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="citas_medicasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Citas">
           <Key>
             <PropertyRef Name="Id" />
@@ -87,7 +87,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Actividad" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FechaActividad" Type="datetime" Nullable="false" />
-          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="id_usuario" Type="int" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
@@ -152,7 +152,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SistemaActividad_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
           <End Role="SistemaActividad" Type="Self.SistemaActividad" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuarios">
@@ -193,7 +193,8 @@
             <End Role="SistemaActividad" EntitySet="SistemaActividad" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="citas_medicasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -243,7 +244,7 @@
           <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Direccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="correo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Especialidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="Especialidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Id_especialidad" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Citas" Relationship="Self.FK_Citas_Medicos" FromRole="Medicos" ToRole="Citas" />
           <NavigationProperty Name="Especialidades" Relationship="Self.FK_Medicos_Especialidades" FromRole="Medicos" ToRole="Especialidades" />
@@ -280,6 +281,16 @@
           <Property Name="CodigoPostal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <EntityType Name="SistemaActividad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Actividad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaActividad" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_usuario" Type="Int32" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_SistemaActividad_Usuarios" FromRole="SistemaActividad" ToRole="Usuarios" />
+        </EntityType>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="Id" />
@@ -292,8 +303,8 @@
           <Property Name="Grupo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Agregado" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SistemaActividads" Relationship="citas_medicasModel.FK_SistemaActividad_Usuarios" FromRole="Usuarios" ToRole="SistemaActividad" />
+          <Property Name="Contrasenia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SistemaActividad" Relationship="Self.FK_SistemaActividad_Usuarios" FromRole="Usuarios" ToRole="SistemaActividad" />
         </EntityType>
         <Association Name="FK_Citas_Consultorios">
           <End Role="Consultorios" Type="Self.Consultorios" Multiplicity="1" />
@@ -343,13 +354,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="citas_medicasEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_SistemaActividad_Usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="SistemaActividad" Type="Self.SistemaActividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SistemaActividad">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="citas_medicasEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Citas" EntityType="Self.Citas" />
           <EntitySet Name="Consultorios" EntityType="Self.Consultorios" />
           <EntitySet Name="Especialidades" EntityType="Self.Especialidades" />
           <EntitySet Name="Medicos" EntityType="Self.Medicos" />
           <EntitySet Name="Pacientes" EntityType="Self.Pacientes" />
           <EntitySet Name="PerfilEmpresa" EntityType="Self.PerfilEmpresa" />
+          <EntitySet Name="SistemaActividad" EntityType="Self.SistemaActividad" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="FK_Citas_Consultorios" Association="Self.FK_Citas_Consultorios">
             <End Role="Consultorios" EntitySet="Consultorios" />
@@ -367,148 +391,126 @@
             <End Role="Especialidades" EntitySet="Especialidades" />
             <End Role="Medicos" EntitySet="Medicos" />
           </AssociationSet>
-          <EntitySet Name="SistemaActividads" EntityType="citas_medicasModel.SistemaActividad" />
-          <AssociationSet Name="FK_SistemaActividad_Usuarios" Association="citas_medicasModel.FK_SistemaActividad_Usuarios">
+          <AssociationSet Name="FK_SistemaActividad_Usuarios" Association="Self.FK_SistemaActividad_Usuarios">
             <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="SistemaActividad" EntitySet="SistemaActividads" />
+            <End Role="SistemaActividad" EntitySet="SistemaActividad" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="SistemaActividad">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Actividad" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="FechaActividad" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id_usuario" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Usuario" Relationship="citas_medicasModel.FK_SistemaActividad_Usuarios" FromRole="SistemaActividad" ToRole="Usuarios" />
-        </EntityType>
-        <Association Name="FK_SistemaActividad_Usuarios">
-          <End Type="citas_medicasModel.Usuarios" Role="Usuarios" Multiplicity="1" />
-          <End Type="citas_medicasModel.SistemaActividad" Role="SistemaActividad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SistemaActividad">
-              <PropertyRef Name="id_usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="citas_medicasModelStoreContainer" CdmEntityContainer="citas_medicasEntities">
-    <EntitySetMapping Name="Citas">
-      <EntityTypeMapping TypeName="IsTypeOf(citas_medicasModel.Citas)">
-        <MappingFragment StoreEntitySet="Citas">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-          <ScalarProperty Name="Hora" ColumnName="Hora" />
-          <ScalarProperty Name="Id_paciente" ColumnName="Id_paciente" />
-          <ScalarProperty Name="Id_medico" ColumnName="Id_medico" />
-          <ScalarProperty Name="Id_consultorio" ColumnName="Id_consultorio" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Consultorios">
-      <EntityTypeMapping TypeName="IsTypeOf(citas_medicasModel.Consultorios)">
-        <MappingFragment StoreEntitySet="Consultorios">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Agregado" ColumnName="Agregado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Especialidades">
-      <EntityTypeMapping TypeName="IsTypeOf(citas_medicasModel.Especialidades)">
-        <MappingFragment StoreEntitySet="Especialidades">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Agregado" ColumnName="Agregado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Medicos">
-      <EntityTypeMapping TypeName="IsTypeOf(citas_medicasModel.Medicos)">
-        <MappingFragment StoreEntitySet="Medicos">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-          <ScalarProperty Name="correo" ColumnName="correo" />
-          <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
-          <ScalarProperty Name="Id_especialidad" ColumnName="Id_especialidad" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Pacientes">
-      <EntityTypeMapping TypeName="IsTypeOf(citas_medicasModel.Pacientes)">
-        <MappingFragment StoreEntitySet="Pacientes">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-          <ScalarProperty Name="Edad" ColumnName="Edad" />
-          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-          <ScalarProperty Name="Correo" ColumnName="Correo" />
-          <ScalarProperty Name="Genero" ColumnName="Genero" />
-          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PerfilEmpresa">
-      <EntityTypeMapping TypeName="IsTypeOf(citas_medicasModel.PerfilEmpresa)">
-        <MappingFragment StoreEntitySet="PerfilEmpresa">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="NumeroRegistro" ColumnName="NumeroRegistro" />
-          <ScalarProperty Name="Correo" ColumnName="Correo" />
-          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
-          <ScalarProperty Name="Moneda" ColumnName="Moneda" />
-          <ScalarProperty Name="ZonaHoraria" ColumnName="ZonaHoraria" />
-          <ScalarProperty Name="Logo" ColumnName="Logo" />
-          <ScalarProperty Name="Calle" ColumnName="Calle" />
-          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
-          <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
-          <ScalarProperty Name="Pais" ColumnName="Pais" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Usuarios">
-      <EntityTypeMapping TypeName="IsTypeOf(citas_medicasModel.Usuarios)">
-        <MappingFragment StoreEntitySet="Usuarios">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
-          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-          <ScalarProperty Name="Correo" ColumnName="Correo" />
-          <ScalarProperty Name="Grupo" ColumnName="Grupo" />
-          <ScalarProperty Name="Agregado" ColumnName="Agregado" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-          <EntitySetMapping Name="SistemaActividads">
-            <EntityTypeMapping TypeName="citas_medicasModel.SistemaActividad">
-              <MappingFragment StoreEntitySet="SistemaActividad">
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="FechaActividad" ColumnName="FechaActividad" />
-                <ScalarProperty Name="Actividad" ColumnName="Actividad" />
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="citas_medicasModelStoreContainer" CdmEntityContainer="citas_medicasEntities1">
+          <EntitySetMapping Name="Citas">
+            <EntityTypeMapping TypeName="citas_medicasModel.Citas">
+              <MappingFragment StoreEntitySet="Citas">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+                <ScalarProperty Name="Id_paciente" ColumnName="Id_paciente" />
+                <ScalarProperty Name="Id_medico" ColumnName="Id_medico" />
+                <ScalarProperty Name="Id_consultorio" ColumnName="Id_consultorio" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-  </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+          <EntitySetMapping Name="Consultorios">
+            <EntityTypeMapping TypeName="citas_medicasModel.Consultorios">
+              <MappingFragment StoreEntitySet="Consultorios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Agregado" ColumnName="Agregado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Especialidades">
+            <EntityTypeMapping TypeName="citas_medicasModel.Especialidades">
+              <MappingFragment StoreEntitySet="Especialidades">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Agregado" ColumnName="Agregado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicos">
+            <EntityTypeMapping TypeName="citas_medicasModel.Medicos">
+              <MappingFragment StoreEntitySet="Medicos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="Especialidad" ColumnName="Especialidad" />
+                <ScalarProperty Name="Id_especialidad" ColumnName="Id_especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pacientes">
+            <EntityTypeMapping TypeName="citas_medicasModel.Pacientes">
+              <MappingFragment StoreEntitySet="Pacientes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerfilEmpresa">
+            <EntityTypeMapping TypeName="citas_medicasModel.PerfilEmpresa">
+              <MappingFragment StoreEntitySet="PerfilEmpresa">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NumeroRegistro" ColumnName="NumeroRegistro" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Moneda" ColumnName="Moneda" />
+                <ScalarProperty Name="ZonaHoraria" ColumnName="ZonaHoraria" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SistemaActividad">
+            <EntityTypeMapping TypeName="citas_medicasModel.SistemaActividad">
+              <MappingFragment StoreEntitySet="SistemaActividad">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Actividad" ColumnName="Actividad" />
+                <ScalarProperty Name="FechaActividad" ColumnName="FechaActividad" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="citas_medicasModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="Agregado" ColumnName="Agregado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -520,9 +522,9 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
