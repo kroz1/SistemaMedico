@@ -42,10 +42,13 @@ namespace SistemaMedico.Controllers
 
                 if(usuarios.Id != -1)
                 {
+                    string nombreCompleto = usuarios.Nombre + " " + usuarios.Apellido;
+
                     SistemaActividad oSistemaActividad = new SistemaActividad();
-                    oSistemaActividad.Actividad = "Ingreso al sistema";
+                    oSistemaActividad.Actividad = "Ingreso al sistema el usuario: " + nombreCompleto;
                     oSistemaActividad.FechaActividad = DateTime.Now;
-                    oSistemaActividad.Usuarios = cGeneral.oUsuario;
+                    oSistemaActividad.id_usuario = usuarios.Id;
+                    //oSistemaActividad.Usuarios = cGeneral.oUsuario;
 
                     db.SistemaActividad.Add(oSistemaActividad);
                     db.SaveChanges();
