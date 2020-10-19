@@ -20,12 +20,12 @@ namespace SistemaMedico.cModels
         public string Contrasenia { get; set; }
 
 
-        public Usuarios ingresar(string txtUsuario, string txtPassword)
+        public Usuarios ingresar(string txtCorreo, string txtPassword)
         {
             try
             {
                 //si el usuario ingreso este correo y el password
-                if((txtUsuario.Trim() == "a@a.com") && (txtPassword.Trim() == "a"))
+                if((txtCorreo.Trim() == "a@a.com") && (txtPassword.Trim() == "a"))
                 {
                     Usuarios objUsuario = new Usuarios();
                     objUsuario.Nombre = "Administrador";
@@ -38,7 +38,7 @@ namespace SistemaMedico.cModels
                     citas_medicasEntities1 db = new citas_medicasEntities1();
                     //query consultar si existe el correo y el password en la base de datos
                     Usuarios registro = (from r in db.Usuarios.Where(
-                                            a => a.Correo.Equals(txtUsuario) & a.Contrasenia.Equals(txtPassword))
+                                            a => a.Correo.Equals(txtCorreo) & a.Contrasenia.Equals(txtPassword))
                                          select r).FirstOrDefault();
 
                     if(registro != null)
