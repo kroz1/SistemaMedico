@@ -129,6 +129,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="citas_medicasDataSetPacientes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>citas_medicasDataSetPacientes.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Clases\cGeneral.cs" />
     <Compile Include="cModels\cCitas.cs" />
     <Compile Include="cModels\cConsultorios.cs" />
@@ -287,6 +292,17 @@
     <Content Include="Models\ModelSistemaMedico.edmx.diagram">
       <DependentUpon>ModelSistemaMedico.edmx</DependentUpon>
     </Content>
+    <Content Include="citas_medicasDataSetPacientes.xsc">
+      <DependentUpon>citas_medicasDataSetPacientes.xsd</DependentUpon>
+    </Content>
+    <None Include="citas_medicasDataSetPacientes.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>citas_medicasDataSetPacientes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="citas_medicasDataSetPacientes.xss">
+      <DependentUpon>citas_medicasDataSetPacientes.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -345,6 +361,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reportes\ReportePacientes.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
