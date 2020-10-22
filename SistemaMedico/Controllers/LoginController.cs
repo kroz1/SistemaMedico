@@ -61,10 +61,7 @@ namespace SistemaMedico.Controllers
                 //sino encuentra el usuario ingresado dado de alta
                 ViewBag.Message = "El correo y/o contraseña son incorrectos, favor de verificar tus credenciales";
                 return View("LoginNuevo");
-            }
-
-
-            
+            }           
         }
     }
 }

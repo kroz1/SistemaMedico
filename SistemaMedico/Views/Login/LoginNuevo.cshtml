@@ -1,6 +1,24 @@
 ﻿@{
     Layout = null;
+    string mensaje = ViewBag.Message;
 }
+    <script src="~/jquery/jquery-3.3.1.min.js"></script>
+
+@*script para mostrar alert box en caso que las credenciales sean incorrectas, 
+si no tiene valor, no mostrar el alert*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var mensajeErrorSession = '@mensaje';
+        if (mensajeErrorSession != "") {
+            $("#alertSession").show();
+        }
+        else {
+            $("#alertSession").hide();
+        }
+    });
+</script>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +43,13 @@
     <link rel="stylesheet" type="text/css" href="~/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/css/main.css">
     <!--===============================================================================================-->
+    
+    <!--===============================================================================================-->
 </head>
 
 <body>
+
+
     <div class="limiter">
         <div class="container-login100" style="background-image: url('images/img-01.jpg');">
             <div class="wrap-login100 p-t-190 p-b-30">
@@ -66,6 +88,13 @@
                         <a href="#" class="txt1">
                             Forgot Username / Password?
                         </a>
+                    </div>
+
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertSession">
+                        <strong>Error al iniciar sesion!</strong> @mensaje
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
 
                     <div class="text-center w-full">
