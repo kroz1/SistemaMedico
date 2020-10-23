@@ -148,6 +148,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MedicosController.cs" />
     <Compile Include="Controllers\PacientesController.cs" />
+    <Compile Include="Controllers\ReportePacientesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -259,6 +260,7 @@
     <Content Include="images\icons\favicon.ico" />
     <Content Include="images\icons\icon-google.png" />
     <Content Include="images\img-01.jpg" />
+    <Content Include="images\logo_hospital_del_parque.png" />
     <Content Include="jquery\jquery-3.3.1.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\scripts.js" />
@@ -342,6 +344,7 @@
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\LoginNuevo.cshtml" />
+    <Content Include="Views\ReportePacientes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
