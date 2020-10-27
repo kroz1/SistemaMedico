@@ -7,6 +7,9 @@ using SistemaMedico.cModels;
 using SistemaMedico.Models;
 using Newtonsoft.Json;
 
+using System.Data;
+using Microsoft.Reporting.WebForms;
+
 namespace SistemaMedico.Controllers
 {
     public class ReportePacientesController : Controller
@@ -42,6 +45,11 @@ namespace SistemaMedico.Controllers
                 mensaje = "Datos cargados",
                 data = listaCitasPacientes
             });
+        }
+
+        public void ImprimirReporte()
+        {
+            string pass = "";
         }
     }
 }
