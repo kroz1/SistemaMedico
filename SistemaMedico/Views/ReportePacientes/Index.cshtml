@@ -106,7 +106,8 @@
 <div class="card border-success mb-3" style="max-width: 80rem;">
     <div class="card-header">
         <strong><i class="fas fa-users"></i> Listado de citas por Pacientes</strong>
-        <button type="button" class="btn btn-info float-right" ><i class="fas fa-print"  onclick="location.href='@Url.Action("ImprimirReporte", "ReportePacientes")'"></i> Imprimir Reporte</button>
+        @*<button type="button" class="btn btn-info float-right" ><i class="fas fa-print" ></i> Imprimir Reporte</button>*@
+        <a class="btn btn-info" href="@Url.Action("ImprimirReporte")"><i class="fas fa-print"></i> Imprimir Reporte</a>
     </div>
     <div class="card-body">
         <table id="tablaCitasPacientes" class="table table-striped table-bordered" style="width:100%">

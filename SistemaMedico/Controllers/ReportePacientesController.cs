@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 
 using System.Data;
 using Microsoft.Reporting.WebForms;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 namespace SistemaMedico.Controllers
 {
@@ -47,9 +49,25 @@ namespace SistemaMedico.Controllers
             });
         }
 
-        public void ImprimirReporte()
+        public ActionResult ImprimirReporte()
         {
-            string pass = "";
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/CrystalReports"), "CrystalReportPacientes.rpt"));
+            rd.SetDataSource(db.Pacientes.ToList());
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Lista de pacientes.pdf");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
