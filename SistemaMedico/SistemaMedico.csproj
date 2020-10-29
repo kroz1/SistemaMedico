@@ -165,6 +165,7 @@
     <Compile Include="cModels\cMedicos.cs" />
     <Compile Include="cModels\cPacientes.cs" />
     <Compile Include="cModels\cUsuarios.cs" />
+    <Compile Include="Controllers\CalendarioController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
@@ -190,6 +191,9 @@
       <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Especialidades.cs">
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Events.cs">
       <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Medicos.cs">
@@ -241,6 +245,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\BoxInfo.css" />
+    <Content Include="css\Calendar.css" />
     <Content Include="css\Login.css" />
     <Content Include="css\main.css" />
     <Content Include="css\styles.css" />
@@ -389,6 +394,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\LoginNuevo.cshtml" />
     <Content Include="Views\ReportePacientes\Index.cshtml" />
+    <Content Include="Views\Calendario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

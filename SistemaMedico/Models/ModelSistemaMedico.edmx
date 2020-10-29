@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="citas_medicasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="citas_medicasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Citas">
           <Key>
             <PropertyRef Name="Id" />
@@ -35,6 +35,18 @@
           <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Estado" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Agregado" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tema" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="300" />
+          <Property Name="FechaInicio" Type="datetime" Nullable="false" />
+          <Property Name="FechaFin" Type="datetime" />
+          <Property Name="Color" Type="varchar" MaxLength="10" />
+          <Property Name="EsDiaEntero" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Medicos">
           <Key>
@@ -167,6 +179,7 @@
           <EntitySet Name="Citas" EntityType="Self.Citas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Consultorios" EntityType="Self.Consultorios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Especialidades" EntityType="Self.Especialidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Medicos" EntityType="Self.Medicos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pacientes" EntityType="Self.Pacientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PerfilEmpresa" EntityType="Self.PerfilEmpresa" Schema="dbo" store:Type="Tables" />
@@ -193,8 +206,7 @@
             <End Role="SistemaActividad" EntitySet="SistemaActividad" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="citas_medicasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -395,7 +407,20 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="SistemaActividad" EntitySet="SistemaActividad" />
           </AssociationSet>
+          <EntitySet Name="Events" EntityType="citas_medicasModel.Events" />
         </EntityContainer>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tema" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaFin" Type="DateTime" Precision="3" Nullable="true" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EsDiaEntero" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -505,6 +530,19 @@
                 <ScalarProperty Name="Agregado" ColumnName="Agregado" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="citas_medicasModel.Events">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="EsDiaEntero" ColumnName="EsDiaEntero" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Tema" ColumnName="Tema" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
