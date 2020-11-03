@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <br />
 <br />
 
@@ -48,11 +49,11 @@
                     <div class="form-group">
                         <label>Inicio</label>
                         <div class="input-group date" id="dtp1">
-                            <input type="text" id="txtStart" class="form-control" />
-                            <span class="input-group-addon">
+                            <input type="text" id="txtStart" class="form-control" aria-describedby="addon-wrapping" />
+                            <span class="input-group-text" id="addon-wrapping"><i class="fas fa-calendar-alt"></i></span>
+                            @*<span class="input-group-addon">
                                 <span class="fas fa-calendar-alt"></span>
-                                @*<i class="fas fa-calendar-alt"></i>*@
-                            </span>
+                            </span>*@
                         </div>
                     </div>
                     <div class="form-group">
@@ -66,7 +67,6 @@
                             <input type="text" id="txtEnd" class="form-control" />
                             <span class="input-group-addon">
                                 <span class="fas fa-calendar-alt"></span>
-                                @*<i class="fas fa-calendar-alt"></i>*@
                             </span>
                         </div>
                     </div>
@@ -217,9 +217,17 @@
                 }
             })
 
-            $('#dtp1,#dtp2').datetimepicker({
-                format: 'DD/MM/YYYY HH:mm A'
+            $('#dtp1, #dtp2').datetimepicker({
+                format: 'DD/MM/YYYY HH:mm A',
+                //uiLibrary: 'bootstrap4'
             });
+
+            //$('#txtStart, #txtEnd').datetimepicker({
+            //    format: 'DD/MM/YYYY HH:mm A',
+            //    uiLibrary: 'bootstrap4',
+            //    modal: true,
+            //    footer: true
+            //});
 
             //Funcion para mostrar u ocultar fecha fin cuando se seleccione si es dia entero
             $('#chkIsFullDay').change(function () {
@@ -236,9 +244,9 @@
                     $('#hdEventID').val(selectedEvent.Id);
                     $('#txtSubject').val(selectedEvent.title);
                     $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
-                    $('#chkIsFullDay').prop("checked", selectedEvent.allDay  || false);
+                    $('#chkIsFullDay').prop("checked", selectedEvent.allDay || false);
                     $('#chkIsFullDay').change();
-                    $('#txtEnd').val(selectedEvent.end  != null ? selectedEvent.end .format('DD/MM/YYYY HH:mm A') : '');
+                    $('#txtEnd').val(selectedEvent.end != null ? selectedEvent.end.format('DD/MM/YYYY HH:mm A') : '');
                     $('#txtDescription').val(selectedEvent.description);
                     $('#ddThemeColor').val(selectedEvent.color);
                 }
@@ -268,18 +276,18 @@
                         return;
                     }
                 }
-            
+
                 var data = {
                     Id: $('#hdEventID').val(),
-                    title: $('#txtSubject').val().trim(),
-                    Start: $('#txtStart').val().trim(),
-                    End: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
-                    description: $('#txtDescription').val(),
-                    color: $('#ddThemeColor').val(),
-                    allDay: $('#chkIsFullDay').is(':checked')
+                    Tema: $('#txtSubject').val().trim(),
+                    FechaInicio: $('#txtStart').val().trim(),
+                    FechaFin: $('#chkIsFullDay').is(':checked') ? null : $('#txtEnd').val().trim(),
+                    Descripcion: $('#txtDescription').val(),
+                    Color: $('#ddThemeColor').val(),
+                    EsDiaEntero: $('#chkIsFullDay').is(':checked')
                 }
                 SaveEvent(data);
-                // call function for submit data to the server 
+                // call function for submit data to the server
             })
 
             function SaveEvent(data) {
