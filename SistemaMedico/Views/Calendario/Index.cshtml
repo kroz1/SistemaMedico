@@ -78,10 +78,10 @@
                     <div class="form-group">
                         <label>Color</label>
                         <select id="ddThemeColor" class="form-control">
-                            <option value="">Default</option>
+                            @*<option value="">Default</option>*@
                             <option value="red">Red</option>
                             <option value="blue">Blue</option>
-                            <option value="black">Black</option>
+                            <option value="orange">Orange</option>
                             <option value="green">Green</option>
                         </select>
                     </div>
@@ -96,22 +96,30 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="~/Bootstrap/css/bootstrap.min.css" />
+@*==============================================================================================*@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" rel="stylesheet" />
 @*==============================================================================================*@
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+@*==============================================================================================*@
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
 @*==============================================================================================*@
-
+<link rel="stylesheet" href="~/SweetAlert2/sweetalert2.min.css" />
 
 @section Scripts{
 
     <script src="~/jquery/jquery-3.3.1.min.js"></script>
+    @*==============================================================================================*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+    @*==============================================================================================*@
     <script src="~/Bootstrap/js/bootstrap.min.js"></script>
+    @*==============================================================================================*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
     @*==============================================================================================*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    @*==============================================================================================*@
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    @*==============================================================================================*@
+    <script src="~/SweetAlert2/sweetalert2.all.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -149,7 +157,7 @@
             function GenerateCalender(events) {
                 $('#calendar').fullCalendar('destroy');
                 $('#calendar').fullCalendar({
-                    contentHeight: 400,
+                    contentHeight: 600,
                     defaultDate: new Date(),
                     timeFormat: 'h(:mm)a',
                     header: {
@@ -210,23 +218,57 @@
             })
 
             $('#btnDelete').click(function () {
-                if (selectedEvent != null && confirm('Are you sure?')) {
-                    $.ajax({
-                        type: "POST",
-                        url: '/Calendario/DeleteEvent',
-                        data: { 'IdEvent': selectedEvent.Id }, //IdEvent -> es el nombre del parametro que tenemos en el controlador
-                        success: function (data) {
-                            if (data.status) {
-                                //Refresh the calender
-                                FetchEventAndRenderCalendar();
-                                $('#myModal').modal('hide');
-                            }
-                        },
-                        error: function () {
-                            alert('Fallo al entrar al controlador');
+                Swal.fire({
+                    title: '¿Esta seguro que quiere eliminar el evento?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Si',
+                    cancelButtonText: 'No',
+                }).then(
+                    function (result) {
+                        if (result.value) {
+                            Swal.fire({
+                                title: 'Eliminando..',
+                                onOpen: () => {
+                                    swal.showLoading()
+                                    if (selectedEvent != null) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: '/Calendario/DeleteEvent',
+                                            data: { 'IdEvent': selectedEvent.Id }, //IdEvent -> es el nombre del parametro que tenemos en el controlador
+                                            success: function (data) {
+                                                if (data.status) {
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: 'Evento eliminado',
+                                                        showCloseButton: true,
+                                                        allowEnterKey: true,
+                                                        onClose: () => {
+                                                            //Refresh the calender
+                                                            FetchEventAndRenderCalendar();
+                                                            $('#myModal').modal('hide');
+                                                        }
+                                                    });
+                                                    
+                                                }
+                                            },
+                                            error: function () {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Oops...',
+                                                    showConfirmButton: true,
+                                                    text: 'Algo salio mal, intentelo nuevamente o contacte al desarollador'
+                                                });
+                                            }
+                                        })
+                                    }
+                                },
+                                onClose: () => {
+
+                                }
+                            });
                         }
-                    })
-                }
+                    });
             })
 
             $('#dtp1, #dtp2').datetimepicker({
@@ -267,22 +309,38 @@
             $('#btnSave').click(function () {
                 //Validation/
                 if ($('#txtSubject').val().trim() == "") {
-                    alert('Subject required');
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Oops...',
+                        text: 'El tema del evento es obligatorio!',
+                    })
                     return;
                 }
                 if ($('#txtStart').val().trim() == "") {
-                    alert('Start date required');
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Oops...',
+                        text: 'Favor de ingresar la fecha inicial!',
+                    })
                     return;
                 }
                 if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
-                    alert('End date required');
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Oops...',
+                        text: 'Favor de ingresar la fecha de termino!',
+                    })
                     return;
                 }
                 else {
                     var startDate = moment($('#txtStart').val(), "DD/MM/YYYY HH:mm A").toDate();
                     var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY HH:mm A").toDate();
                     if (startDate > endDate) {
-                        alert('Invalid end date');
+                        Swal.fire({
+                          icon: 'info',
+                          title: 'Oops...',
+                          text: 'La fecha de termino, NO debe ser menor a la fecha inicial!',
+                        })
                         return;
                     }
                 }
@@ -301,21 +359,45 @@
             })
 
             function SaveEvent(data) {
-                $.ajax({
-                    type: "POST",
-                    url: '/Calendario/SaveEvent',
-                    data: data,
-                    success: function (data) {
-                        if (data.status) {
-                            //Refresh the calender
-                            FetchEventAndRenderCalendar();
-                            $('#myModalSave').modal('hide');
-                        }
+                Swal.fire({
+                    title: "Guardando..",
+                    onOpen: () => {
+                        Swal.showLoading()
+                        $.ajax({
+                            type: "POST",
+                            url: '/Calendario/SaveEvent',
+                            data: data,
+                            success: function (data) {
+                                if (data.status) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Se ha guardado el evento',
+                                        showCloseButton: false,
+                                        showConfirmButton: false,
+                                        allowEnterKey: true,
+                                        timer: 2000,
+                                        onClose: () => {
+                                            //Refresh the calender
+                                            FetchEventAndRenderCalendar();
+                                            $('#myModalSave').modal('hide');
+                                        }
+                                    }); 
+                                }
+                            },
+                            error: function () {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    showConfirmButton: true,
+                                    text: 'Algo salio mal, intentelo nuevamente o contacte al desarollador'
+                                });
+                            }
+                        })
                     },
-                    error: function () {
-                        alert('Failed');
+                    onClose: () => {
+
                     }
-                })
+                });
             }
         });
     </script>
