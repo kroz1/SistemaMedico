@@ -52,8 +52,8 @@
                             <input type="text" id="txtStart" class="form-control" aria-describedby="addon-wrapping" />
                             <span class="input-group-text" id="addon-wrapping"><i class="fas fa-calendar-alt"></i></span>
                             @*<span class="input-group-addon">
-                                <span class="fas fa-calendar-alt"></span>
-                            </span>*@
+                                    <span class="fas fa-calendar-alt"></span>
+                                </span>*@
                         </div>
                     </div>
                     <div class="form-group">
@@ -64,10 +64,11 @@
                     <div class="form-group" id="divEndDate" style="display:none">
                         <label>Fin</label>
                         <div class="input-group date" id="dtp2">
-                            <input type="text" id="txtEnd" class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="fas fa-calendar-alt"></span>
-                            </span>
+                            <input type="text" id="txtEnd" class="form-control" aria-describedby="addon-wrapping" />
+                            <span class="input-group-text" id="addon-wrapping"><i class="fas fa-calendar-alt"></i></span>
+                            @*<span class="input-group-addon">
+                                    <span class="fas fa-calendar-alt"></span>
+                                </span>*@
                         </div>
                     </div>
                     <div class="form-group">
@@ -92,14 +93,25 @@
     </div>
 </div>
 
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="~/Bootstrap/css/bootstrap.min.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" rel="stylesheet" />
+@*==============================================================================================*@
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
 <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+@*==============================================================================================*@
+
 
 @section Scripts{
+
+    <script src="~/jquery/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.3/umd/popper.min.js"></script>
+    <script src="~/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    @*==============================================================================================*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -179,13 +191,13 @@
                     editable: true,
                     eventDrop: function (event) {
                         var data = {
-                            Id: event.eventID,
-                            title: event.title,
-                            Start: event.start.format('DD/MM/YYYY HH:mm A'),
-                            End: event.end != null ? event.end.format('DD/MM/YYYY HH:mm A') : null,
-                            Description: event.description,
-                            ThemeColor: event.color,
-                            IsFullDay: event.allDay
+                            Id: event.Id,
+                            Tema: event.title,
+                            FechaInicio: event.start.format('DD/MM/YYYY HH:mm A'),
+                            FechaFin: event.end != null ? event.end.format('DD/MM/YYYY HH:mm A') : null,
+                            Descripcion: event.description,
+                            Color: event.color,
+                            EsDiaEntero: event.allDay
                         };
                         SaveEvent(data);
                     }
@@ -218,16 +230,14 @@
             })
 
             $('#dtp1, #dtp2').datetimepicker({
-                format: 'DD/MM/YYYY HH:mm A',
+                //format: 'DD/MM/YYYY HH:mm A',
+                format: 'd-m-Y H:i',
+                //format: 'DD/MM/YYYY HH:mm',
+                timepicker: true,
+                datepicker: true,
+                weeks: false
                 //uiLibrary: 'bootstrap4'
             });
-
-            //$('#txtStart, #txtEnd').datetimepicker({
-            //    format: 'DD/MM/YYYY HH:mm A',
-            //    uiLibrary: 'bootstrap4',
-            //    modal: true,
-            //    footer: true
-            //});
 
             //Funcion para mostrar u ocultar fecha fin cuando se seleccione si es dia entero
             $('#chkIsFullDay').change(function () {
