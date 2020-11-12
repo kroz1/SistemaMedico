@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var StockMonitor = ViewBag.MonitorSV;
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
@@ -72,23 +73,28 @@
                         return fecha;
                     },
                 },
-            ],
+            ]
 
-            initComplete: function () {
-                this.api().columns().every(function () {
-                    var column = this;
-                    var search = $(`<input class="form-control form-control-sm" type="text" placeholder="Search">`)
-                        .appendTo($(column.footer()).empty())
-                        .on('change input', function () {
-                            var val = $(this).val()
+            //initComplete: function () {
+            //    this.api().columns().every(function () {
+            //        var column = this;
+            //        var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected>Search</option></select>')
+            //            .appendTo($(column.footer()).empty())
+            //            .on('change', function () {
+            //                var val = $.fn.dataTable.util.escapeRegex(
+            //                    $(this).val()
+            //                );
 
-                            column
-                                .search(val ? val : '', true, false)
-                                .draw();
-                        });
+            //                column
+            //                    .search(val ? '^' + val + '$' : '', true, false)
+            //                    .draw();
+            //            });
 
-                });
-            }
+            //        column.data().unique().sort().each(function (d, j) {
+            //            select.append('<option value="' + d + '">' + d + '</option>')
+            //        });
+            //    });
+            //}
         });
     });
 </script>
@@ -147,7 +153,7 @@
             labels: ['Monitor SV', 'Electroquirúrgicas', 'Electrocardiograma', 'Respirador artificial', 'Desfibrilador', 'Esterilizadores', 'Ultrasonido', 'Camillas y mesas quirúrgicas'],
             datasets: [{
                 label: 'Numero de equipo quirúrgico',
-                data: [20, 36, 51, 10, 9, 78, 64, 18],
+                data: [@StockMonitor, 36, 51, 10, 9, 78, 64, 18],
                 backgroundColor: [
                     'rgb(0, 153, 255, 0.5)',
                     'rgb(163, 0, 204, 0.5)',

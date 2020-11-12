@@ -15,6 +15,12 @@ namespace SistemaMedico.Controllers
         // GET: Inventario
         public ActionResult Index()
         {
+            //consulta para traer el dato stock de la db
+            //var MonitorSV = from p in db.Productos where p.Id == 3 select p.Stock;
+            var MonitorSV = db.Productos.Where(p => p.Id == 3).Select(p => new { Stock = p.Stock });
+            //var row = db.Productos.SingleOrDefault(a => a.Id == 3);
+            //var MonitorSV = row != null ? row.Stock : String.Empty;
+            ViewBag.MonitorSV = MonitorSV;
             return View();
         }
 
