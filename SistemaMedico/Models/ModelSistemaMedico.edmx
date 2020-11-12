@@ -92,6 +92,17 @@
           <Property Name="CodigoPostal" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Pais" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="Stock" Type="int" />
+          <Property Name="PrecioCompra" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="PrecioVenta" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Agregado" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="SistemaActividad">
           <Key>
             <PropertyRef Name="Id" />
@@ -183,6 +194,7 @@
           <EntitySet Name="Medicos" EntityType="Self.Medicos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pacientes" EntityType="Self.Pacientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PerfilEmpresa" EntityType="Self.PerfilEmpresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SistemaActividad" EntityType="Self.SistemaActividad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Citas_Consultorios" Association="Self.FK_Citas_Consultorios">
@@ -408,6 +420,7 @@
             <End Role="SistemaActividad" EntitySet="SistemaActividad" />
           </AssociationSet>
           <EntitySet Name="Events" EntityType="citas_medicasModel.Events" />
+          <EntitySet Name="Productos" EntityType="citas_medicasModel.Productos" />
         </EntityContainer>
         <EntityType Name="Events">
           <Key>
@@ -420,6 +433,17 @@
           <Property Name="FechaFin" Type="DateTime" Precision="3" Nullable="true" />
           <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="EsDiaEntero" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Stock" Type="Int32" />
+          <Property Name="PrecioCompra" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="PrecioVenta" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Agregado" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -542,6 +566,18 @@
                 <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Tema" ColumnName="Tema" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Productos">
+            <EntityTypeMapping TypeName="citas_medicasModel.Productos">
+              <MappingFragment StoreEntitySet="Productos">
+                <ScalarProperty Name="Agregado" ColumnName="Agregado" />
+                <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+                <ScalarProperty Name="PrecioCompra" ColumnName="PrecioCompra" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

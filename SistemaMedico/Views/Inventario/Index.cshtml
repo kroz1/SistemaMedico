@@ -1,0 +1,169 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+@*==============================================================================================*@
+<link rel="stylesheet" href="~/DataTables/datatables.min.css" />
+@*==============================================================================================*@
+<link rel="stylesheet" href="~/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css" />
+@*==============================================================================================*@
+<link rel="stylesheet" href="~/SweetAlert2/sweetalert2.min.css" />
+@*==============================================================================================*@
+<script src="~/jquery/jquery-3.3.1.min.js"></script>
+@*==============================================================================================*@
+
+<script type="text/javascript" class="init">
+    var table;
+    $(document).ready(function () {
+        var cargandoGeneral = Swal.fire({
+            title: 'Cargando datos ...',
+            allowOutsideClick: false,
+            showCancelButton: false,
+            showConfirmButton: false,
+        });
+        table = $('#tablaProductos').dataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json",
+            },
+
+            ajax: {
+                type: "POST",
+                url: '@Url.Action("listarProductos", "Inventario")',
+
+                complete: function (data) {
+                    cargandoGeneral.close();
+                }
+            },
+
+            columns: [
+                {
+                    "name": "Nombre",
+                    "render": function (data, type, row, meta) {
+                        return row.Nombre;
+                    },
+                },
+                {
+                    "name": "Stock",
+                    "render": function (data, type, row, meta) {
+                        return row.Stock;
+                    },
+                },
+                {
+                    "name": "PrecioCompra",
+                    "render": function (data, type, row, meta) {
+                        return row.PrecioCompra;
+                    },
+                },
+                {
+                    "name": "PrecioVenta",
+                    "render": function (data, type, row, meta) {
+                        return row.PrecioVenta;
+                    },
+                },
+                {
+                    "name": "Agregado",
+                    "render": function (data, type, row, meta) {
+                        var fecha = "";
+                        if (row.Agregado) {
+                            fecha = row.Agregado == '0001-01-01T00:00:00' ? '' : row.Agregado.split('T')[0].split('-').reverse().join('/');
+                        }
+                        return fecha;
+                    },
+                },
+            ],
+
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var search = $(`<input class="form-control form-control-sm" type="text" placeholder="Search">`)
+                        .appendTo($(column.footer()).empty())
+                        .on('change input', function () {
+                            var val = $(this).val()
+
+                            column
+                                .search(val ? val : '', true, false)
+                                .draw();
+                        });
+
+                });
+            }
+        });
+    });
+</script>
+
+<br />
+<br />
+
+<div class="col-md-8">
+    <div class="card">
+        <div class="card-header">
+            <strong>Panel de Control Inventario</strong>  <small>Version 1.0</small>
+        </div>
+        <div class="card-body">
+            <canvas id="ChartInventarios"></canvas>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="col-md-8">
+    <div class="card">
+        <div class="card-header">
+            <strong>Productos</strong>
+        </div>
+        <div class="card-body">
+            <!--Table-->
+            <table id="tablaProductos" class="table table-hover table-fixed" style="width:100%">
+                <thead>
+                    <tr>
+                        <th> Nombre </th>
+                        <th> Stock </th>
+                        <th> Precio de compra </th>
+                        <th> Precio de venta </th>
+                        <th> Agregado </th>
+                        <th>  </th>
+                    </tr>
+                </thead>
+                <tfoot>
+
+                </tfoot>
+            </table>
+            <!--Table-->
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var ctx = document.getElementById("ChartInventarios").getContext("2d");
+    var MyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Monitor SV', 'Electroquirúrgicas', 'Electrocardiograma', 'Respirador artificial', 'Desfibrilador', 'Esterilizadores', 'Ultrasonido', 'Camillas y mesas quirúrgicas'],
+            datasets: [{
+                label: 'Numero de equipo quirúrgico',
+                data: [20, 36, 51, 10, 9, 78, 64, 18],
+                backgroundColor: [
+                    'rgb(0, 153, 255, 0.5)',
+                    'rgb(163, 0, 204, 0.5)',
+                    'rgb(0, 51, 17, 0.5)',
+                    'rgb(255, 102, 0, 0.5)',
+                    'rgb(179, 179, 0, 0.5)',
+                    'rgb(255, 0, 0, 0.5)',
+                    'rgb(0, 255, 255, 0.5)',
+                    'rgb(204, 51, 0, 0.5)'
+                ]
+            }]
+        }
+    });
+</script>
+
+
+<script type="text/javascript" src="~/DataTables/datatables.min.js" defer></script>
+@*==============================================================================================*@
+<script src="~/SweetAlert2/sweetalert2.all.min.js"></script>
