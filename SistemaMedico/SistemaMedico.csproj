@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="Clases\cGeneral.cs" />
     <Compile Include="cModels\cCitas.cs" />
+    <Compile Include="cModels\cConexion.cs" />
     <Compile Include="cModels\cConsultorios.cs" />
     <Compile Include="cModels\cEspecialidades.cs" />
     <Compile Include="cModels\cMedicos.cs" />

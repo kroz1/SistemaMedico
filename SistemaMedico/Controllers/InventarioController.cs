@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace SistemaMedico.Controllers
 {
@@ -15,12 +16,34 @@ namespace SistemaMedico.Controllers
         // GET: Inventario
         public ActionResult Index()
         {
+            /*if (Session["perfil"] == null)
+            {
+                return View("Login");
+            }*/
             //consulta para traer el dato stock de la db
             //var MonitorSV = from p in db.Productos where p.Id == 3 select p.Stock;
-            var MonitorSV = db.Productos.Where(p => p.Id == 3).Select(p => new { Stock = p.Stock });
-            //var row = db.Productos.SingleOrDefault(a => a.Id == 3);
-            //var MonitorSV = row != null ? row.Stock : String.Empty;
-            ViewBag.MonitorSV = MonitorSV;
+            //var MonitorSV = db.Productos.Where(p => p.Id == 3).Select(p => new { Stock = p.Stock });
+
+            string conectionERP = db.Database.Connection.ConnectionString;
+            cConexion conexion = new cConexion(conectionERP);
+
+            string SQL = @"select Stock from Productos where Id = 3";
+            DataTable odataTable = conexion.EjecutarConsulta(SQL);
+
+            if(odataTable != null)
+            {
+                if (odataTable.Rows.Count == 0)
+                {
+                    //return false;
+                }
+            }
+            else
+            {
+
+            }
+
+            var MonitorSV = db.Productos.Select(a => a.Stock);
+            //ViewBag.MonitorSV = MonitorSV;
             return View();
         }
 
