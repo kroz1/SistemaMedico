@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -14,4 +15,6 @@ namespace SistemaMedico.cModels
         public Nullable<decimal> PrecioVenta { get; set; }
         public System.DateTime Agregado { get; set; }
     }
+
+    
 }

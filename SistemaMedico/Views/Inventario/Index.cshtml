@@ -2,6 +2,13 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var StockMonitor = ViewBag.MonitorSV;
+    var StockElectroquirúrgicas = ViewBag.Electroquirúrgicas;
+    var StockElectrocardiograma = ViewBag.Electrocardiograma;
+    var StockRespArtificial = ViewBag.RespArtificial;
+    var StockDesfibrilador = ViewBag.Desfibrilador;
+    var StockEsterilizadores = ViewBag.Esterilizadores;
+    var StockUltrasonido = ViewBag.Ultrasonido;
+    var StockCamasCamillas = ViewBag.CamasCamillas;
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
@@ -153,7 +160,7 @@
             labels: ['Monitor SV', 'Electroquirúrgicas', 'Electrocardiograma', 'Respirador artificial', 'Desfibrilador', 'Esterilizadores', 'Ultrasonido', 'Camillas y mesas quirúrgicas'],
             datasets: [{
                 label: 'Numero de equipo quirúrgico',
-                data: [@StockMonitor, 36, 51, 10, 9, 78, 64, 18],
+                data: [@StockMonitor, @StockElectroquirúrgicas, @StockElectrocardiograma, @StockRespArtificial, @StockDesfibrilador, @StockEsterilizadores, @StockUltrasonido, @StockCamasCamillas],
                 backgroundColor: [
                     'rgb(0, 153, 255, 0.5)',
                     'rgb(163, 0, 204, 0.5)',
