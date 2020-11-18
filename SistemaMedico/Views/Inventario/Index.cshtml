@@ -21,6 +21,8 @@
 @*==============================================================================================*@
 <script src="~/jquery/jquery-3.3.1.min.js"></script>
 @*==============================================================================================*@
+<script src="~/Bootstrap/js/bootstrap.min.js"></script>
+@*==============================================================================================*@
 
 <script type="text/javascript" class="init">
     var table;
@@ -80,30 +82,160 @@
                         return fecha;
                     },
                 },
+                {
+                    data: "Id", "render": function (Id) {
+                        return '<button type="button" class="btn btn-outline-danger btn-sm" onclick="eliminar(' + Id
+                            + ');"><i class="fa fa-trash"></i></button> <button type="button" class="btn btn-outline-primary btn-sm" onclick="editar(' + Id
+                            + ');"><i class="fas fa-pencil-alt"></i></button>';
+                    }
+                }
             ]
-
-            //initComplete: function () {
-            //    this.api().columns().every(function () {
-            //        var column = this;
-            //        var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected>Search</option></select>')
-            //            .appendTo($(column.footer()).empty())
-            //            .on('change', function () {
-            //                var val = $.fn.dataTable.util.escapeRegex(
-            //                    $(this).val()
-            //                );
-
-            //                column
-            //                    .search(val ? '^' + val + '$' : '', true, false)
-            //                    .draw();
-            //            });
-
-            //        column.data().unique().sort().each(function (d, j) {
-            //            select.append('<option value="' + d + '">' + d + '</option>')
-            //        });
-            //    });
-            //}
         });
+
+        $('#btnGuardar').click(function () {
+            guardar();
+        })
     });
+
+    function guardar() {
+        Swal.fire({
+            title: "Guardando..",
+            onOpen: () => {
+                swal.showLoading()
+                $.ajax({
+                    type: "POST",
+                    url: "/Inventario/guardar",
+                    data: {
+                        "Id": $('#Id').val(),
+                        "Nombre": $('#txtNombre').val(),
+                        "Stock": $('#txtCantidad').val(),
+                        "PrecioCompra": $('#txtPrecioCompra').val(),
+                        "PrecioVenta": $('#txtPrecioVenta').val()
+                    },
+                    success: function (data) {
+                        $("#divBotones").show();
+                        if (data["status"] == true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se ha guardado el producto',
+                                showCloseButton: true,
+                                allowEnterKey: true,
+                                onClose: () => {
+                                    $('#Id').val(data["datos"]["Id"]);
+                                    actualizar();
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                showConfirmButton: true,
+                                text: data["mensaje"]
+                            });
+                        }
+                    },
+                    error: function (request, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: request.responseText
+                        });
+                    }
+                });
+            },
+            onClose: () => {
+
+            }
+        });
+    }
+
+    function eliminar(Id) {
+        Swal.fire({
+            title: '¿Esta seguro que quiere eliminar el producto?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No',
+        }).then(
+            function (result) {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Eliminando..',
+                        onOpen: () => {
+                            swal.showLoading()
+                            $.ajax({
+                                type: "POST",
+                                url: "/Inventario/eliminar",
+                                data: { 'Id': Id },
+                                success: function (data) {
+                                    if (data["status"] == true) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Producto eliminado',
+                                            showCloseButton: true,
+                                            allowEnterKey: true,
+                                            onClose: () => {
+                                                actualizar();
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            showConfirmButton: true,
+                                            text: data["mensaje"]
+                                        });
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            })
+                        },
+                        onClose: () => {
+
+                        }
+                    })
+                }
+            });
+    }
+
+    function editar(Id) {
+        $.ajax({
+            type: "POST",
+            url: "/Inventario/editar",
+            data: { "Id": Id },
+            success: function (data) {
+                $('#modalEditarProducto').modal('show');
+                $("#divMensajeError").hide();
+                $("#divMensaje").hide();
+                if (data["status"] == true) {
+                    $('#Id').val(data["datos"]["Id"]);
+                    $('#txtNombreEditar').val(data["datos"]["Nombre"]);
+                    $('#txtCantidadEditar').val(data["datos"]["Stock"]);
+                    $('#txtPrecioCompraEditar').val(data["datos"]["PrecioCompra"]);
+                    $('#txtPrecioVentaEditar').val(data["datos"]["PrecioVenta"]);
+                }
+                else {
+                    $("#divMensajeError").show();
+                    $("#divMensajeError").html(data["mensaje"]);
+                }
+            },
+            error: function (error) {
+                $('#modalEditarProducto').modal('toggle');
+                $("#divMensajeError").show()
+                $("#divMensajeError").html(error);
+            }
+        });
+    }
+
+    //Actualiza la datatable
+    function actualizar() {
+        table.api().ajax.reload(null, false); //reload de datatable ajax
+    }
+
 </script>
 
 <br />
@@ -123,10 +255,11 @@
 <br />
 <br />
 
-<div class="col-md-8">
+<div class="card border-success mb-3" style="max-width: 80rem;">
     <div class="card">
         <div class="card-header">
-            <strong>Productos</strong>
+            <strong><i class="fas fa-pallet"></i> Productos</strong>
+            <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modalAgregarProducto"><i class="fas fa-plus"></i> Agregar Producto</button>
         </div>
         <div class="card-body">
             <!--Table-->
@@ -150,6 +283,76 @@
     </div>
 </div>
 
+
+<!-- The Modal create -->
+<div class="modal fade" id="modalAgregarProducto">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-pallet"></i> Agregar Producto</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="Id" name="Id" />
+                <label>Nombre</label>
+                <input type="text" id="txtNombre" name="txtNombre" class="form-control">
+                <label>Cantidad</label>
+                <input type="number" id="txtCantidad" name="txtCantidad" class="form-control">
+                <label>Precio de compra</label>
+                <input type="number" id="txtPrecioCompra" name="txtPrecioCompra" class="form-control">
+                <label>Precio de venta</label>
+                <input type="number" id="txtPrecioVenta" name="txtPrecioVenta" class="form-control">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id="divBotones">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>
+                    <button id="btnGuardar" type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-save"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal edit -->
+<div class="modal fade" id="modalEditarProducto">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fas fa-pallet"></i> Editar Producto</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="Id" name="Id" />
+                <label>Nombre</label>
+                <input type="text" id="txtNombreEditar" name="txtNombreEditar" class="form-control">
+                <label>Cantidad</label>
+                <input type="number" id="txtCantidadEditar" name="txtCantidadEditar" class="form-control" disabled>
+                <label>Precio de compra</label>
+                <input type="number" id="txtPrecioCompraEditar" name="txtPrecioCompraEditar" class="form-control">
+                <label>Precio de venta</label>
+                <input type="number" id="txtPrecioVentaEditar" name="txtPrecioVentaEditar" class="form-control">
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id="divBotones">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>
+                    <button id="btnGuardar" type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-save"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>

@@ -158,17 +158,75 @@ namespace SistemaMedico.Controllers
             if(cproductos.Id != 0)
             {
                 //editar
+                objProductos = db.Productos.Where(a => a.Id == cproductos.Id).FirstOrDefault();
+                if(objProductos == null)
+                {
+                    return Json(new { status = false, mensaje = "No existe el registro" });
+                }
+                else
+                {
+                    objProductos.Nombre = cproductos.Nombre;
+                    objProductos.Stock = cproductos.Stock;
+                    objProductos.PrecioCompra = cproductos.PrecioCompra;
+                    objProductos.PrecioVenta = cproductos.PrecioVenta;
+                    objProductos.Agregado = DateTime.Now;
+
+                    db.Productos.Attach(objProductos);
+                    db.Entry(objProductos).State = System.Data.Entity.EntityState.Modified;
+                }
             }
             else
             {
                 //nuevo
                 objProductos.Nombre = cproductos.Nombre;
                 objProductos.Stock = cproductos.Stock;
-                objProductos.Nombre = cproductos.Nombre;
-                objProductos.Nombre = cproductos.Nombre;
-                objProductos.Nombre = cproductos.Nombre;
+                objProductos.PrecioCompra = cproductos.PrecioCompra;
+                objProductos.PrecioVenta = cproductos.PrecioVenta;
+                objProductos.Agregado = DateTime.Now;
+                db.Productos.Add(objProductos);
             }
+            db.SaveChanges();
             return Json(new { status = true, mensaje = "Datos guardados", datos = objProductos });
+        }
+
+        public JsonResult eliminar(int Id)
+        {
+            Productos objProductos = new Productos();
+            if (Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id esta en 0" });
+            }
+
+            objProductos = db.Productos.Where(a => a.Id == Id).FirstOrDefault();
+            if (objProductos == null)
+            {
+                return Json(new { status = false, mensaje = "No existe el registro" });
+            }
+            else
+            {
+                db.Productos.Attach(objProductos);
+                db.Productos.Remove(objProductos);
+                db.SaveChanges();
+
+                return Json(new { status = true, mensaje = "Registro eliminado" });
+            }
+        }
+
+        public JsonResult editar(int Id)
+        {
+            Productos objProductos = new Productos();
+            if (Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id esta en 0" });
+            }
+
+            objProductos = db.Productos.Where(a => a.Id == Id).FirstOrDefault();
+            if (objProductos == null)
+            {
+                return Json(new { status = false, mensaje = "No existe el registro" });
+            }
+
+            return Json(new { status = true, mensaje = "Datos cargados", datos = objProductos });
         }
     }
 }
