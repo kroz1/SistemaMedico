@@ -95,6 +95,10 @@
         $('#btnGuardar').click(function () {
             guardar();
         })
+
+        $('#btnGuardarEditar').click(function () {
+            guardarEditar();
+        })
     });
 
     function guardar() {
@@ -111,6 +115,59 @@
                         "Stock": $('#txtCantidad').val(),
                         "PrecioCompra": $('#txtPrecioCompra').val(),
                         "PrecioVenta": $('#txtPrecioVenta').val()
+                    },
+                    success: function (data) {
+                        $("#divBotones").show();
+                        if (data["status"] == true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se ha guardado el producto',
+                                showCloseButton: true,
+                                allowEnterKey: true,
+                                onClose: () => {
+                                    $('#Id').val(data["datos"]["Id"]);
+                                    actualizar();
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                showConfirmButton: true,
+                                text: data["mensaje"]
+                            });
+                        }
+                    },
+                    error: function (request, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: request.responseText
+                        });
+                    }
+                });
+            },
+            onClose: () => {
+
+            }
+        });
+    }
+
+    function guardarEditar() {
+        Swal.fire({
+            title: "Guardando..",
+            onOpen: () => {
+                swal.showLoading()
+                $.ajax({
+                    type: "POST",
+                    url: "/Inventario/guardar",
+                    data: {
+                        "Id": $('#Id').val(),
+                        "Nombre": $('#txtNombreEditar').val(),
+                        "Stock": $('#txtCantidadEditar').val(),
+                        "PrecioCompra": $('#txtPrecioCompraEditar').val(),
+                        "PrecioVenta": $('#txtPrecioVentaEditar').val()
                     },
                     success: function (data) {
                         $("#divBotones").show();
@@ -347,7 +404,7 @@
             <div class="modal-footer">
                 <div id="divBotones">
                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>
-                    <button id="btnGuardar" type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-save"></i> Guardar</button>
+                    <button id="btnGuardarEditar" type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-save"></i> Guardar</button>
                 </div>
             </div>
         </div>

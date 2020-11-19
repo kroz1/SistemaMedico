@@ -201,6 +201,40 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-pallet"></i></div>
                             Inventario
                         </a>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCompras" aria-expanded="false" aria-controls="collapseReportes">
+                            <div class="sb-nav-link-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                            Compras
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseCompras" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="@Url.Action("Index", "Compras")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-cart-plus"></i></div>
+                                    Nueva Compra
+                                </a>
+                                <a class="nav-link" @*href="@Url.Action("Index", "GrupoUsuarios")"*@>
+                                    <div class="sb-nav-link-icon"><i class="fas fa-receipt"></i></div>
+                                    Historial de compras
+                                </a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCatalogo" aria-expanded="false" aria-controls="collapseReportes">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                            Catálogo
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseCatalogo" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="@Url.Action("Index", "Productos")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-qrcode"></i></div>
+                                    Productos
+                                </a>
+                                <a class="nav-link" @*href="@Url.Action("Index", "GrupoUsuarios")"*@>
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tags"></i></div>
+                                    Categorías
+                                </a>
+                            </nav>
+                        </div>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
