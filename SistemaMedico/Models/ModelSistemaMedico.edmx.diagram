@@ -20,6 +20,9 @@
         <AssociationConnector Association="citas_medicasModel.FK_SistemaActividad_Usuarios" ManuallyRouted="false" />
         <EntityTypeShape EntityType="citas_medicasModel.Events" Width="1.5" PointX="5.375" PointY="9.75" />
         <EntityTypeShape EntityType="citas_medicasModel.Productos" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="citas_medicasModel.Categoria" Width="1.5" PointX="9.375" PointY="10.625" />
+        <EntityTypeShape EntityType="citas_medicasModel.ProductosInventario" Width="1.5" PointX="11.625" PointY="10" />
+        <AssociationConnector Association="citas_medicasModel.FK_ProductosInventario_Categoria" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

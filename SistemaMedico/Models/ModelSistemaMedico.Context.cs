@@ -35,5 +35,7 @@ namespace SistemaMedico.Models
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Events> Events { get; set; }
         public virtual DbSet<Productos> Productos { get; set; }
+        public virtual DbSet<Categoria> Categoria { get; set; }
+        public virtual DbSet<ProductosInventario> ProductosInventario { get; set; }
     }
 }

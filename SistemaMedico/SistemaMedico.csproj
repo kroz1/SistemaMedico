@@ -159,6 +159,7 @@
       <DependentUpon>citas_medicasDataSetPacientes.xsd</DependentUpon>
     </Compile>
     <Compile Include="Clases\cGeneral.cs" />
+    <Compile Include="cModels\cCategorias.cs" />
     <Compile Include="cModels\cCitas.cs" />
     <Compile Include="cModels\cConexion.cs" />
     <Compile Include="cModels\cConsultorios.cs" />
@@ -166,8 +167,10 @@
     <Compile Include="cModels\cMedicos.cs" />
     <Compile Include="cModels\cPacientes.cs" />
     <Compile Include="cModels\cProductos.cs" />
+    <Compile Include="cModels\cProductosInventario.cs" />
     <Compile Include="cModels\cUsuarios.cs" />
     <Compile Include="Controllers\CalendarioController.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
@@ -176,6 +179,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MedicosController.cs" />
     <Compile Include="Controllers\PacientesController.cs" />
+    <Compile Include="Controllers\ProductosInventarioController.cs" />
     <Compile Include="Controllers\ReportePacientesController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="CrystalReports\CrystalReportPacientes.cs">
@@ -186,6 +190,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categoria.cs">
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Citas.cs">
       <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
@@ -224,6 +231,9 @@
       <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Productos.cs">
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductosInventario.cs">
       <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SistemaActividad.cs">
@@ -402,6 +412,8 @@
     <Content Include="Views\ReportePacientes\Index.cshtml" />
     <Content Include="Views\Calendario\Index.cshtml" />
     <Content Include="Views\Inventario\Index.cshtml" />
+    <Content Include="Views\Categoria\Index.cshtml" />
+    <Content Include="Views\ProductosInventario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
