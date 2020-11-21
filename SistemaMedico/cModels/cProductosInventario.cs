@@ -19,5 +19,7 @@ namespace SistemaMedico.cModels
         public string Estado { get; set; }
         public byte[] Imagen { get; set; }
         public Nullable<int> Id_Categoria { get; set; }
+
+        public HttpPostedFileWrapper ImageFile { get; set; }
     }
 }

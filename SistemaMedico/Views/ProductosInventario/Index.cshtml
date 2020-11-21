@@ -60,10 +60,9 @@
                 },
                 {
                     //2
-                    "name": "Imagen",
-                    "render": function (data, type, row, meta) {
-                        return row.Imagen;
-                    },
+                    data: "Id", "render": function (Id) {
+                        return '<button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#modalImagen"><i class="fas fa-images"></i></button>';
+                    }
                 },
                 {
                     //3
@@ -78,7 +77,7 @@
                     "render": function (data, type, row, meta) {
                         return row.Id_Categoria;
                     },
-                },               
+                },
                 {
                     //5
                     "name": "Estado",
@@ -117,7 +116,95 @@
         $('#btnGuardar').click(function () {
             guardar();
         })
+
+        $('#btnGuardarImagen').click(function () {
+            UploadImagen();
+        });
     })
+
+    var UploadImagen = function () {
+        var file = $("#InputFile").get(0).files;
+        var data = new FormData;
+        data.append("ImageFile", file[0]);
+        $.ajax({
+            type: "POST",
+            url: "/ProductosInventario/ImageUpload",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (Id) {
+                $("#UploadedImage").append('<img src="/ProductosInventario/DisplayingImage?Id=' + Id + '"class=img-responsive thumbnail"/>');
+            }
+        });
+    }
+
+
+    function guardar() {
+        Swal.fire({
+            title: "Guardando producto...",
+            onOpen: () => {
+                swal.showLoading()
+                $.ajax({
+                    type: "POST",
+                    url: "/ProductosInventario/guardar",
+                    data: {
+                        "Id": $('#Id').val(),
+                        "Codigo": $('#txtCodigo').val(),
+                        "Presentacion": $('#txtPresentacion').val(),
+                        "Nombre": $('#txtNombre').val(),
+                        "Descripcion": $('#txtDescripcion').val(),
+                        "Id_Categoria": $('#selectCategoria').val(),
+                        "StockInicial": $('#txtCantidad').val(),
+                        "Utilidad": $('#txtUtilidad').val(),
+                        "PrecioVenta": $('#txtPrecioVenta').val(),
+                        "Estado": $('#selectEstado').val(),
+                        "Costo": $('#txtCosto').val(),
+                        //"Imagen": $('#SelectImage').val()
+                    },
+                    success: function (data) {
+                        $("#divBotones").show();
+                        if (data["status"] == true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se ha guardado el producto',
+                                showCloseButton: false,
+                                showConfirmButton: false,
+                                allowEnterKey: true,
+                                timer: 2000,
+                                onClose: () => {
+                                    $('#Id').val(data["datos"]["Id"]);
+                                    actualizar();
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                showConfirmButton: true,
+                                text: data["mensaje"]
+                            });
+                        }
+                    },
+                    error: function (request, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: request.responseText
+                        });
+                    }
+                });
+            },
+            onClose: () => {
+
+            }
+        });
+    }
+
+    //Actualiza la datatable
+    function actualizar() {
+        table.ajax.reload(null, false); //reload de datatable ajax
+    }
 </script>
 
 
@@ -166,8 +253,12 @@
                 <input type="hidden" id="Id" name="Id" />
 
                 <div class="form-inline">
-                    <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" placeholder="Código">
-                    <input type="text" id="txtPresentacion" name="txtPresentacion" class="form-control" placeholder="Presentación">
+                    <div class="form-group mx-sm-2">
+                        <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" placeholder="Código">
+                    </div>
+                    <div class="form-group mx-sm-2">
+                        <input type="text" id="txtPresentacion" name="txtPresentacion" class="form-control" placeholder="Presentación">
+                    </div>
                 </div>
                 <br />
                 <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Ingrese el nombre">
@@ -175,33 +266,31 @@
                 <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" required maxlength="255" placeholder="Ingrese Descripcion"></textarea>
                 <br />
                 <div class="form-inline">
-                    @Html.DropDownList("Datos", items, "Seleccione la categoría", new { @name = "selectCategoria", @id = "selectCategoria", @class = "form-control" })
+                    <div class="form-group mx-sm-2">
+                        @Html.DropDownList("Datos", items, "Seleccione la categoría", new { @name = "selectCategoria", @id = "selectCategoria", @class = "form-control" })
+                    </div>
 
-                    <label class="sr-only" for="inlineFormInputGroup">Costo</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">$</div>
-                        <input type="number" id="txtCosto" name="txtCosto" class="form-control">
+                    <div class="form-group mx-sm-2">
+                        <input type="number" id="txtCantidad" name="txtCantidad" class="form-control" placeholder="Ingrese la cantidad">
                     </div>
                 </div>
                 <br />
                 <div class="form-inline">
-                    <label class="sr-only" for="inlineFormInputGroup">Utilidad</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">$</div>
-                        <input type="number" id="txtUtilidad" name="txtUtilidad" class="form-control">
+                    <div class="form-group mx-sm-2">
+                        <input type="number" class="form-control" id="txtUtilidad" name="txtUtilidad" placeholder="Ingresa la utilidad">
                     </div>
 
-                    <label class="sr-only" for="inlineFormInputGroup">Precio de venta</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">$</div>
-                        <input type="number" id="txtPrecioVenta" name="txtPrecioVenta" class="form-control">
+                    <div class="form-group mx-sm-2">
+                        <input type="number" class="form-control" id="txtPrecioVenta" name="txtPrecioVenta" placeholder="Ingresa el precio">
                     </div>
                 </div>
                 <br />
                 <div class="form-inline">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon">$</div>
-                        <input type="number" id="txtCantidad" name="txtCantidad" class="form-control">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon02">$</span>
+                    </div>
+                    <div class="custom-control-inline">
+                        <input type="number" class="form-control" id="txtCosto" name="txtCosto" aria-describedby="inputGroupFileAddon02" placeholder="Ingresa el costo">
                     </div>
 
                     <select class="browser-default custom-select" id="selectEstado" name="selectEstado">
@@ -212,14 +301,15 @@
                 </div>
                 <br />
                 <div class="input-group">
-                    <div class="input-group-prepend">
+                    <!---<div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupFileAddon01">Cargar</span>
                     </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                        <input type="file" class="custom-file-input" id="inputGroupFile01" name="inputGroupFile01" accept=".jpg"
                                aria-describedby="inputGroupFileAddon01">
                         <label class="custom-file-label" for="inputGroupFile01">Selecciona imagen</label>
                     </div>
+                    <input id="SelectImage" accept=".jpg" type="file" />-->
                 </div>
             </form>
             <!-- Modal footer -->
@@ -229,7 +319,35 @@
                     <button id="btnGuardar" type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-save"></i> Guardar</button>
                 </div>
             </div>
-        </div>            
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Image-->
+<div class="modal fade" id="modalImagen" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-images"></i> Ingresa la imagen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Eliga la imagen</label>
+                        <input type="file" class="form-control-file" id="InputFile" name="InputFile" accept=".jpg">
+                    </div>
+                </form>
+                <div class="col-md-4 thumbnail" id="UploadedImage"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnGuardarImagen" class="btn btn-primary">Guardar imagen</button>
+            </div>
+        </div>
     </div>
 </div>
 

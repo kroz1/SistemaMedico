@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SistemaMedico.Models;
 using SistemaMedico.cModels;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace SistemaMedico.Controllers
 {
@@ -64,6 +65,80 @@ namespace SistemaMedico.Controllers
                 mensaje = "Datos cargados",
                 data = listaProductosInventario
             });
+        }
+
+        public JsonResult guardar(cProductosInventario cproductosInventario)
+        {
+            ProductosInventario objProductosInventario = new ProductosInventario();
+            if (cproductosInventario.Id != 0)
+            {
+                //editar
+                objProductosInventario = db.ProductosInventario.Where(a => a.Id == cproductosInventario.Id).FirstOrDefault();
+                if (objProductosInventario == null)
+                {
+                    return Json(new { status = false, mensaje = "No existe el registro" });
+                }
+                else
+                {
+                    objProductosInventario.Codigo = cproductosInventario.Codigo;
+                    objProductosInventario.Presentacion = cproductosInventario.Presentacion;
+                    objProductosInventario.Nombre = cproductosInventario.Nombre;
+                    objProductosInventario.Descripcion = cproductosInventario.Descripcion;
+                    objProductosInventario.Costo = cproductosInventario.Costo;
+                    objProductosInventario.Utilidad = cproductosInventario.Utilidad;
+                    objProductosInventario.PrecioVenta = cproductosInventario.PrecioVenta;
+                    objProductosInventario.StockInicial = cproductosInventario.StockInicial;
+                    objProductosInventario.Estado = cproductosInventario.Estado;
+                    //objProductosInventario.Imagen = cproductosInventario.Imagen;
+                    objProductosInventario.Id_Categoria = cproductosInventario.Id_Categoria;
+
+                    db.ProductosInventario.Attach(objProductosInventario);
+                    db.Entry(objProductosInventario).State = System.Data.Entity.EntityState.Modified;
+                }
+            }
+            else
+            {
+                //nuevo
+                objProductosInventario.Codigo = cproductosInventario.Codigo;
+                objProductosInventario.Presentacion = cproductosInventario.Presentacion;
+                objProductosInventario.Nombre = cproductosInventario.Nombre;
+                objProductosInventario.Descripcion = cproductosInventario.Descripcion;
+                objProductosInventario.Costo = cproductosInventario.Costo;
+                objProductosInventario.Utilidad = cproductosInventario.Utilidad;
+                objProductosInventario.PrecioVenta = cproductosInventario.PrecioVenta;
+                objProductosInventario.StockInicial = cproductosInventario.StockInicial;
+                objProductosInventario.Estado = cproductosInventario.Estado;
+                //objProductosInventario.Imagen = cproductosInventario.Imagen;
+                objProductosInventario.Id_Categoria = cproductosInventario.Id_Categoria;
+                db.ProductosInventario.Add(objProductosInventario);
+            }
+            db.SaveChanges();
+            return Json(new { status = true, mensaje = "Datos guardados", datos = objProductosInventario });
+        }
+
+        public JsonResult ImageUpload(cProductosInventario model)
+        {
+            int imgId = 0;
+            var file = model.ImageFile;
+            byte[] ImageByte = null;
+            if(file != null)
+            {
+                file.SaveAs(Server.MapPath("/UploadImage/" + file.FileName));
+                BinaryReader reader = new BinaryReader(file.InputStream);
+                ImageByte = reader.ReadBytes(file.ContentLength);
+                ProductosInventario img = new ProductosInventario();
+                img.Imagen = ImageByte;
+                db.ProductosInventario.Add(img);
+                db.SaveChanges();
+                imgId = img.Id;
+            }
+            return Json(imgId, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DisplayingImage(int Id)
+        {
+            var img = db.ProductosInventario.Where(a => a.Id == Id).FirstOrDefault();
+            return File(img.Imagen, "image/jpg");
         }
     }
 }
