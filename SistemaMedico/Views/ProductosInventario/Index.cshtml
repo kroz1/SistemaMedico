@@ -54,14 +54,23 @@
                 {
                     //1
                     "name": "Codigo",
-                    "render": function (data, type, row, meta) {
+                    "render": function (data, type, row, meta) {                       
                         return row.Codigo;
                     },
                 },
                 {
                     //2
-                    data: "Id", "render": function (Id) {
-                        return '<button type="button" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#modalImagen"><i class="fas fa-images"></i></button>';
+                    'data': 'Imagen',
+                    'sortable': false,
+                    'searchable': false,
+                    'render': function (Imagen) {
+                        if (!Imagen) {
+                            return 'N/A';
+                        }
+                        else {
+                            var img = 'data:image/png;base64,' + Imagen;
+                            return '<img src="' + img + '" height="70px" width="90px" />';
+                        }
                     }
                 },
                 {
@@ -107,7 +116,8 @@
                     data: "Id", "render": function (Id) {
                         return '<button type="button" class="btn btn-outline-danger btn-sm" onclick="eliminar(' + Id
                             + ');"><i class="fa fa-trash"></i></button> <button type="button" class="btn btn-outline-primary btn-sm" onclick="editar(' + Id
-                            + ');"><i class="fas fa-pencil-alt"></i></button>';
+                            + ');"><i class="fas fa-pencil-alt"></i></button> <button type="button" class="btn btn-outline-warning btn-sm" onclick="editarImg(' + Id
+                            + ');"><i class="fas fa-images"></i></button>';
                     }
                 }
             ]
@@ -122,7 +132,7 @@
         });
     })
 
-    var UploadImagen = function () {
+    function UploadImagen () {
         var file = $("#InputFile").get(0).files;
         var data = new FormData;
         data.append("ImageFile", file[0]);
@@ -130,6 +140,7 @@
             type: "POST",
             url: "/ProductosInventario/ImageUpload",
             data: data,
+            //"Id": $('#Id').val(),
             contentType: false,
             processData: false,
             success: function (Id) {
@@ -137,7 +148,6 @@
             }
         });
     }
-
 
     function guardar() {
         Swal.fire({
@@ -200,6 +210,32 @@
             }
         });
     }
+
+    function editarImg(Id) {
+        $.ajax({
+            type: "POST",
+            url: "/ProductosInventario/editarImg",
+            data: { "Id": Id },
+            success: function (data) {
+                $('#modalImagen').modal('show');
+                $("#divMensajeError").hide();
+                $("#divMensaje").hide();
+                if (data["status"] == true) {
+                    $('#Id').val(data["datos"]["Id"]);
+                }
+                else {
+                    $("#divMensajeError").show();
+                    $("#divMensajeError").html(data["mensaje"]);
+                }
+            },
+            error: function (error) {
+                $('#modalImagen').modal('toggle');
+                $("#divMensajeError").show()
+                $("#divMensajeError").html(error);
+            }
+        });
+    }
+
 
     //Actualiza la datatable
     function actualizar() {
@@ -329,18 +365,16 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-images"></i> Ingresa la imagen</h5>
+                <h5 class="modal-title"><i class="fas fa-images"></i> Ingresa la imagen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleFormControlFile1">Eliga la imagen</label>
-                        <input type="file" class="form-control-file" id="InputFile" name="InputFile" accept=".jpg">
-                    </div>
-                </form>
+            <div class="modal-body">                                 
+                <input type="hidden" id="Id" name="Id" />
+                <label for="exampleFormControlFile1">Eliga la imagen</label>
+                <input type="file" class="form-control-file" id="InputFile" name="InputFile" accept=".jpg">
+                                    
                 <div class="col-md-4 thumbnail" id="UploadedImage"></div>
             </div>
             <div class="modal-footer">

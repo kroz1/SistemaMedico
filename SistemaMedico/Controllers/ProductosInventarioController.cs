@@ -116,21 +116,23 @@ namespace SistemaMedico.Controllers
             return Json(new { status = true, mensaje = "Datos guardados", datos = objProductosInventario });
         }
 
-        public JsonResult ImageUpload(cProductosInventario model)
-        {
-            int imgId = 0;
+        public JsonResult ImageUpload(cProductosInventario model) 
+        {            
+            int imgId = 2;
             var file = model.ImageFile;
             byte[] ImageByte = null;
-            if(file != null)
+            if (file != null)
             {
                 file.SaveAs(Server.MapPath("/UploadImage/" + file.FileName));
                 BinaryReader reader = new BinaryReader(file.InputStream);
                 ImageByte = reader.ReadBytes(file.ContentLength);
                 ProductosInventario img = new ProductosInventario();
+                img = db.ProductosInventario.Where(a => a.Id == imgId).FirstOrDefault();
                 img.Imagen = ImageByte;
-                db.ProductosInventario.Add(img);
+                db.ProductosInventario.Attach(img);
+                db.Entry(img).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-                imgId = img.Id;
+                //imgId = img.Id;
             }
             return Json(imgId, JsonRequestBehavior.AllowGet);
         }
@@ -139,6 +141,26 @@ namespace SistemaMedico.Controllers
         {
             var img = db.ProductosInventario.Where(a => a.Id == Id).FirstOrDefault();
             return File(img.Imagen, "image/jpg");
+        }
+
+
+        public JsonResult editarImg(int Id)
+        {
+            ProductosInventario objProdInv = new ProductosInventario();
+            if(Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id esta en 0" });
+            }
+            else
+            {
+                objProdInv = db.ProductosInventario.Where(a => a.Id == Id).FirstOrDefault();
+                if (objProdInv == null)
+                {
+                    return Json(new { status = false, mensaje = "No existe el registro" });
+                }
+
+                return Json(new { status = true, mensaje = "Datos cargados", datos = objProdInv });
+            }          
         }
     }
 }
