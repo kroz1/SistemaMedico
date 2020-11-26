@@ -118,7 +118,7 @@ namespace SistemaMedico.Controllers
 
         public JsonResult ImageUpload(cProductosInventario model) 
         {            
-            int imgId = 2;
+            int imgId = model.Id;
             var file = model.ImageFile;
             byte[] ImageByte = null;
             if (file != null)
@@ -134,7 +134,8 @@ namespace SistemaMedico.Controllers
                 db.SaveChanges();
                 //imgId = img.Id;
             }
-            return Json(imgId, JsonRequestBehavior.AllowGet);
+            //return Json(imgId, JsonRequestBehavior.AllowGet);
+            return Json(new { status = true, mensaje = "Imagen guardada", JsonRequestBehavior.AllowGet});
         }
 
         public ActionResult DisplayingImage(int Id)

@@ -132,21 +132,60 @@
         });
     })
 
-    function UploadImagen () {
-        var file = $("#InputFile").get(0).files;
-        var data = new FormData;
-        data.append("ImageFile", file[0]);
-        $.ajax({
-            type: "POST",
-            url: "/ProductosInventario/ImageUpload",
-            data: data,
-            //"Id": $('#Id').val(),
-            contentType: false,
-            processData: false,
-            success: function (Id) {
-                $("#UploadedImage").append('<img src="/ProductosInventario/DisplayingImage?Id=' + Id + '"class=img-responsive thumbnail"/>');
+    function UploadImagen() {
+        Swal.fire({
+            title: "Guardando imagen del producto...",
+            onOpen: () => {
+                swal.showLoading()
+                var file = $("#InputFile").get(0).files;
+                var data = new FormData;
+                data.append("ImageFile", file[0]);
+                $.ajax({
+                    type: "POST",
+                    url: "/ProductosInventario/ImageUpload",
+                    data: data,
+                    //"Id": $('#Id').val(),
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        $("#divBotones").show();
+                        if (data["status"] == true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se ha guardado la imagen del producto',
+                                showCloseButton: false,
+                                showConfirmButton: false,
+                                allowEnterKey: true,
+                                timer: 2000,
+                                onClose: () => {
+                                    //$('#Id').val(data["datos"]["Id"]);
+                                    actualizar();
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                showConfirmButton: true,
+                                text: data["mensaje"]
+                            });
+                        }
+                        //$("#UploadedImage").append('<img src="/ProductosInventario/DisplayingImage?Id=' + Id + '"class=img-responsive thumbnail"/>');
+                    },
+                    error: function (request, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: request.responseText
+                        });
+                    }
+                });
+            },
+            onClose: () => {
+
             }
-        });
+        });      
     }
 
     function guardar() {
@@ -370,12 +409,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">                                 
+            <div class="modal-body">
                 <input type="hidden" id="Id" name="Id" />
                 <label for="exampleFormControlFile1">Eliga la imagen</label>
                 <input type="file" class="form-control-file" id="InputFile" name="InputFile" accept=".jpg">
-                                    
-                <div class="col-md-4 thumbnail" id="UploadedImage"></div>
+
+                <!--<div class="col-md-4 thumbnail" id="UploadedImage"></div>-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
