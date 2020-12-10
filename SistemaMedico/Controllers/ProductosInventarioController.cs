@@ -116,9 +116,47 @@ namespace SistemaMedico.Controllers
             return Json(new { status = true, mensaje = "Datos guardados", datos = objProductosInventario });
         }
 
+        public JsonResult eliminar(int Id)
+        {
+            ProductosInventario objProdInv = new ProductosInventario();
+            if(Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id esta en 0" });
+            }
+            objProdInv = db.ProductosInventario.Where(a => a.Id == Id).FirstOrDefault();
+            if(objProdInv == null)
+            {
+                return Json(new { status = false, mensaje = "No existe producto en la BD" });
+            }
+            else
+            {
+                db.ProductosInventario.Attach(objProdInv);
+                db.ProductosInventario.Remove(objProdInv);
+                db.SaveChanges();
+
+                return Json(new { status = true, mensaje = "Registro eliminado" });
+            }
+        }
+
+        public JsonResult editar(int Id)
+        {
+            ProductosInventario objProdInv = new ProductosInventario();
+            if(Id == 0)
+            {
+                return Json(new { status = false, mensaje = "El id esta en 0" });
+            }
+            objProdInv = db.ProductosInventario.Where(a => a.Id == Id).FirstOrDefault();
+            if(objProdInv == null)
+            {
+                return Json(new { status = false, mensaje = "No existe producto en la BD" });
+            }
+            return Json(new { status = true, mensaje = "Datos cargados", datos = objProdInv });
+        }
+
         public JsonResult ImageUpload(cProductosInventario model) 
-        {            
-            int imgId = model.Id;
+        {
+            //int imgId = model.Id;
+            int imgId = 7;
             var file = model.ImageFile;
             byte[] ImageByte = null;
             if (file != null)

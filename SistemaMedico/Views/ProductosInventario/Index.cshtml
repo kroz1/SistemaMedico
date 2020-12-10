@@ -24,6 +24,7 @@
 @*==============================================================================================*@
 <script src="~/Bootstrap/js/bootstrap.min.js"></script>
 @*==============================================================================================*@
+<link href="~/css/lightbox.css" rel="stylesheet"/>
 @*==============================================================================================*@
 <link rel="stylesheet" href="~/SweetAlert2/sweetalert2.min.css" />
 
@@ -69,7 +70,7 @@
                         }
                         else {
                             var img = 'data:image/png;base64,' + Imagen;
-                            return '<img src="' + img + '" height="70px" width="90px" />';
+                            return '<a href="' + img +'" data-lightbox="medecine"><img src="' + img + '" height="70px" width="90px" ></a>';
                         }
                     }
                 },
@@ -246,6 +247,95 @@
             },
             onClose: () => {
 
+            }
+        });
+    }
+
+    function eliminar(Id) {
+        Swal.fire({
+            title: '¿Esta seguro que quiere eliminar el producto?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si',
+            cancelButtonText: 'Cancelar',
+        }).then(
+            function (result) {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Eliminando..',
+                        onOpen: () => {
+                            swal.showLoading()
+                            $.ajax({
+                                type: "POST",
+                                url: "/ProductosInventario/eliminar",
+                                data: { 'Id': Id },
+                                success: function (data) {
+                                    if (data["status"] == true) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Producto eliminado!',
+                                            showCloseButton: false,
+                                            showConfirmButton: false,
+                                            allowEnterKey: true,
+                                            timer: 2000,
+                                            onClose: () => {
+                                                actualizar();
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            showConfirmButton: true,
+                                            text: data["mensaje"]
+                                        });
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                }
+                            })
+                        },
+                        onClose: () => {
+
+                        }
+                    })
+                }
+            });
+    }
+
+    function editar(Id) {
+        $.ajax({
+            type: "POST",
+            url: "/ProductosInventario/editar",
+            data: { "Id": Id },
+            success: function (data) {
+                $('#modalProductos').modal('show');
+                $("#divMensajeError").hide();
+                $("#divMensaje").hide();
+                if (data["status"] == true) {
+                    $('#Id').val(data["datos"]["Id"]);
+                    $('#txtCodigo').val(data["datos"]["Codigo"]);
+                    $('#txtPresentacion').val(data["datos"]["Presentacion"]);
+                    $('#txtNombre').val(data["datos"]["Nombre"]);
+                    $('#selectCategoria').val(data["datos"]["Id_Categoria"]);
+                    $('#txtDescripcion').val(data["datos"]["Descripcion"]);
+                    $('#txtCantidad').val(data["datos"]["StockInicial"]);
+                    $('#txtUtilidad').val(data["datos"]["Utilidad"]);
+                    $('#txtPrecioVenta').val(data["datos"]["PrecioVenta"]);
+                    $('#txtCosto').val(data["datos"]["Costo"]);
+                    $('#selectEstado').val(data["datos"]["Estado"]);
+                }
+                else {
+                    $("#divMensajeError").show();
+                    $("#divMensajeError").html(data["mensaje"]);
+                }
+            },
+            error: function (error) {
+                $('#modalProductos').modal('toggle');
+                $("#divMensajeError").show()
+                $("#divMensajeError").html(error);
             }
         });
     }
@@ -428,3 +518,4 @@
 
 <script type="text/javascript" src="~/DataTables/datatables.min.js" defer></script>
 <script src="~/SweetAlert2/sweetalert2.all.min.js"></script>
+<script src="~/js/lightbox.js"></script>

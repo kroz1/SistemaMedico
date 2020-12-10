@@ -262,6 +262,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\BoxInfo.css" />
     <Content Include="css\Calendar.css" />
+    <Content Include="css\lightbox.css" />
     <Content Include="css\Login.css" />
     <Content Include="css\main.css" />
     <Content Include="css\styles.css" />
@@ -309,11 +310,16 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\avatar-01.jpg" />
+    <Content Include="images\close.png" />
     <Content Include="images\icons\favicon.ico" />
     <Content Include="images\icons\icon-google.png" />
     <Content Include="images\img-01.jpg" />
+    <Content Include="images\loading.gif" />
     <Content Include="images\logo_hospital_del_parque.png" />
+    <Content Include="images\next.png" />
+    <Content Include="images\prev.png" />
     <Content Include="jquery\jquery-3.3.1.min.js" />
+    <Content Include="js\lightbox.js" />
     <Content Include="js\main.js" />
     <Content Include="js\scripts.js" />
     <Content Include="Models\ModelSistemaMedico.Context.tt">
