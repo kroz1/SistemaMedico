@@ -218,7 +218,7 @@
                                 </a>
                             </nav>
                         </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCatalogo" aria-expanded="false" aria-controls="collapseReportes">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCatalogo" aria-expanded="false" aria-controls="collapseCatalogo">
                             <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                             Catálogo
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -232,6 +232,23 @@
                                 <a class="nav-link" href="@Url.Action("Index", "Categoria")">
                                     <div class="sb-nav-link-icon"><i class="fas fa-tags"></i></div>
                                     Categorías
+                                </a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseContactos" aria-expanded="false" aria-controls="collapseContactos">
+                            <div class="sb-nav-link-icon"><i class="fas fa-address-book"></i></div>
+                            Contactos
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseContactos" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="@Url.Action("Index", "Clientes")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                    Clientes
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Index", "Proveedores")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-truck-loading"></i></div>
+                                    Proveedores
                                 </a>
                             </nav>
                         </div>

@@ -45,6 +45,8 @@ namespace SistemaMedico.Controllers
         {
             var query = (from p in db.ProductosInventario select p).OrderBy(p => p.Id).ToList<ProductosInventario>();
             List<cProductosInventario> listaProductosInventario = new List<cProductosInventario>();
+            List<cCategorias> listaCategorias = new List<cCategorias>();
+            
             foreach (ProductosInventario productoInventario in query)
             {
                 cProductosInventario ObjProductoInventario = new cProductosInventario();
@@ -156,7 +158,7 @@ namespace SistemaMedico.Controllers
         public JsonResult ImageUpload(cProductosInventario model) 
         {
             //int imgId = model.Id;
-            int imgId = 7;
+            int imgId = 13;
             var file = model.ImageFile;
             byte[] ImageByte = null;
             if (file != null)
