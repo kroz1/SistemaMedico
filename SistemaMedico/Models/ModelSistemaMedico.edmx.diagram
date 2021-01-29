@@ -25,6 +25,10 @@
         <AssociationConnector Association="citas_medicasModel.FK_ProductosInventario_Categoria" />
         <EntityTypeShape EntityType="citas_medicasModel.Cliente" Width="1.5" PointX="10.375" PointY="0.75" />
         <EntityTypeShape EntityType="citas_medicasModel.Proveedor" Width="1.5" PointX="10.375" PointY="4.75" />
+        <EntityTypeShape EntityType="citas_medicasModel.Compra" Width="1.5" PointX="12.625" PointY="5.625" />
+        <AssociationConnector Association="citas_medicasModel.FK_Compra_Productos" />
+        <AssociationConnector Association="citas_medicasModel.FK_Compra_Proveedor" />
+        <AssociationConnector Association="citas_medicasModel.FK_Compra_Usuarios" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

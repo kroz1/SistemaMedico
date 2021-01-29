@@ -14,11 +14,20 @@ namespace SistemaMedico.Models
     
     public partial class Productos
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Productos()
+        {
+            this.Compra = new HashSet<Compra>();
+        }
+    
         public int Id { get; set; }
         public string Nombre { get; set; }
         public Nullable<int> Stock { get; set; }
         public Nullable<decimal> PrecioCompra { get; set; }
         public Nullable<decimal> PrecioVenta { get; set; }
         public System.DateTime Agregado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Compra> Compra { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace SistemaMedico.Models
         public Usuarios()
         {
             this.SistemaActividad = new HashSet<SistemaActividad>();
+            this.Compra = new HashSet<Compra>();
         }
     
         public int Id { get; set; }
@@ -32,5 +33,7 @@ namespace SistemaMedico.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SistemaActividad> SistemaActividad { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Compra> Compra { get; set; }
     }
 }

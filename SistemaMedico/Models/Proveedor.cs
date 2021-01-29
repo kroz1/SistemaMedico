@@ -14,6 +14,12 @@ namespace SistemaMedico.Models
     
     public partial class Proveedor
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Proveedor()
+        {
+            this.Compra = new HashSet<Compra>();
+        }
+    
         public int Id { get; set; }
         public string RegFiscal { get; set; }
         public string Proveedor1 { get; set; }
@@ -21,5 +27,8 @@ namespace SistemaMedico.Models
         public string Email { get; set; }
         public string Telefono { get; set; }
         public System.DateTime Agregado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Compra> Compra { get; set; }
     }
 }

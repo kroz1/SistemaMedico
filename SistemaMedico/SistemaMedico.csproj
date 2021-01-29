@@ -162,6 +162,7 @@
     <Compile Include="cModels\cCategorias.cs" />
     <Compile Include="cModels\cCitas.cs" />
     <Compile Include="cModels\cCliente.cs" />
+    <Compile Include="cModels\cCompra.cs" />
     <Compile Include="cModels\cConexion.cs" />
     <Compile Include="cModels\cConsultorios.cs" />
     <Compile Include="cModels\cEspecialidades.cs" />
@@ -202,6 +203,9 @@
       <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cliente.cs">
+      <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Compra.cs">
       <DependentUpon>ModelSistemaMedico.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Consultorios.cs">
