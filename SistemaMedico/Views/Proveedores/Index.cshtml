@@ -80,7 +80,7 @@
                     },
                 },
                 {
-                    //5
+                    //6
                     "name": "Agregado",
                     "render": function (data, type, row, meta) {
                         var fecha = "";
@@ -91,7 +91,7 @@
                     },
                 },
                 {
-                    //6
+                    //7
                     data: "Id", "render": function (Id) {
                         return '<button type="button" class="btn btn-outline-danger btn-sm" onclick="eliminar(' + Id
                             + ');"><i class="fa fa-trash"></i></button> <button type="button" class="btn btn-outline-primary btn-sm" onclick="editar(' + Id
@@ -118,7 +118,7 @@
                     data: {
                         "Id": $('#Id').val(),
                         "RegFiscal": $('#txtRegistroFiscal').val(),
-                        "Proveedor": $('#txtNombreProv').val(),
+                        "Proveedor1": $('#txtNombreProv').val(),
                         "Direccion": $('#txtDireccion').val(),
                         "Telefono": $('#txtTelefono').val(),
                         "Email": $('#txtEmail').val()
@@ -229,7 +229,7 @@
                 if (data["status"] == true) {
                     $('#Id').val(data["datos"]["Id"]);
                     $('#txtRegistroFiscal').val(data["datos"]["RegFiscal"]);
-                    $('#txtNombreProv').val(data["datos"]["Proveedor"]);
+                    $('#txtNombreProv').val(data["datos"]["Proveedor1"]);
                     $('#txtDireccion').val(data["datos"]["Direccion"]);
                     $('#txtTelefono').val(data["datos"]["Telefono"]);
                     $('#txtEmail').val(data["datos"]["Email"]);
@@ -245,6 +245,11 @@
                 $("#divMensajeError").html(error);
             }
         });
+    }
+
+    //Actualiza la datatable
+    function actualizar() {
+        table.ajax.reload(null, false); //reload de datatable ajax
     }
 
 </script>
