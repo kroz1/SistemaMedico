@@ -176,6 +176,7 @@
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\ComprasController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -276,6 +277,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="css\BoxInfo.css" />
     <Content Include="css\Calendar.css" />
+    <Content Include="css\Divider.css" />
     <Content Include="css\lightbox.css" />
     <Content Include="css\Login.css" />
     <Content Include="css\main.css" />
@@ -436,6 +438,7 @@
     <Content Include="Views\ProductosInventario\Index.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
     <Content Include="Views\Proveedores\Index.cshtml" />
+    <Content Include="Views\Compras\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

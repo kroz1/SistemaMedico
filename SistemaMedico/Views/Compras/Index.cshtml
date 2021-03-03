@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> <i class="fas fa-cart-plus"></i> Agregar nueva compra</h2>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="shortcut icon" href="#" />
+@*==============================================================================================*@
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="~/Bootstrap/css/bootstrap.min.css" />
+@*==============================================================================================*@
+<!--datables CSS básico-->
+<link rel="stylesheet" href="~/DataTables/datatables.min.css" />
+@*==============================================================================================*@
+<link rel="stylesheet" href="~/css/Divider.css" />
+@*==============================================================================================*@
+<!--datables estilo bootstrap 4 CSS-->
+<link rel="stylesheet" href="~/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css" />
+@*==============================================================================================*@
+<script src="~/jquery/jquery-3.3.1.min.js"></script>
+@*==============================================================================================*@
+<script src="~/popper/popper.min.js"></script>
+@*==============================================================================================*@
+<script src="~/Bootstrap/js/bootstrap.min.js"></script>
+@*==============================================================================================*@
+<link rel="stylesheet" href="~/SweetAlert2/sweetalert2.min.css" />
+@*==============================================================================================*@
+
+<br />
+<br />
+
+<div class="card border-success mb-lg-4" style="max-width: 90rem;">
+    <div class="card-header">
+        <strong><i class="fas fa-tags"></i> Detalles de la compra</strong>
+        <br>
+        <hr class="style11">
+        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modalBuscarProducto"><i class="fas fa-search"></i> Buscar productos</button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> CODIGO </th>
+                        <th> CANT. </th>
+                        <th> DESCRIPCIÓN </th>
+                        <th> PRECIO UNIT. </th>
+                        <th> PRECIO TOTAL </th>
+                        <th> </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="~/DataTables/datatables.min.js" defer></script>
+<script src="~/SweetAlert2/sweetalert2.all.min.js"></script>
