@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
 }
 
 <h2> <i class="fas fa-cart-plus"></i> Agregar nueva compra</h2>
@@ -37,7 +38,23 @@
         <strong><i class="fas fa-tags"></i> Detalles de la compra</strong>
         <br>
         <hr class="style11">
-        <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#modalBuscarProducto"><i class="fas fa-search"></i> Buscar productos</button>
+        <div class="d-flex bd-highlight">
+            <div class="p-2 flex-fill bd-highlight">
+                <label>Proveedor</label>
+                <div class="form-inline">
+                    @Html.DropDownList("Datos", items, "Seleccione Proveedor", new { @name = "selectProveedor", @id = "selectProveedor", @class = "col-8 form-control" })
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_proveedor"><i class="fas fa-plus"></i> Nuevo</button>
+                </div>              
+            </div>
+            <div class="p-2 flex-fill bd-highlight">
+                <label>N° Compra</label>
+                <input type="text" id="txtCorreo" name="txtCorreo" class="form-control" disabled>
+            </div>
+            
+            <div class="p-2 flex-fill bd-highlight">
+                <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#modalBuscarProducto"><i class="fas fa-search"></i> Buscar productos</button>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
