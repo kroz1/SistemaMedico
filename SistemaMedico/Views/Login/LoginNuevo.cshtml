@@ -1,126 +1,112 @@
 ﻿@{
     Layout = null;
-    string mensaje = ViewBag.Message;
 }
-    <script src="~/jquery/jquery-3.3.1.min.js"></script>
-
-@*script para mostrar alert box en caso que las credenciales sean incorrectas, 
-si no tiene valor, no mostrar el alert*@
-<script type="text/javascript">
-    $(document).ready(function () {
-        var mensajeErrorSession = '@mensaje';
-        if (mensajeErrorSession != "") {
-            $("#alertSession").show();
-        }
-        else {
-            $("#alertSession").hide();
-        }
-    });
-</script>
-
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="~/images/icons/favicon.ico" />
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Bootstrap/css/bootstrap.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/css/util.css">
-    <link rel="stylesheet" type="text/css" href="~/css/main.css">
-    <!--===============================================================================================-->
-    
-    <!--===============================================================================================-->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/64d58efce2.js"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <title>Sign in & Sign up Form</title>
 </head>
-
 <body>
-
-
-    <div class="limiter">
-        <div class="container-login100" style="background-image: url('images/img-01.jpg');">
-            <div class="wrap-login100 p-t-190 p-b-30">
-                <form action="~/Login/LoginNuevo" class="login100-form validate-form" method="post">
-                    <div class="login100-form-avatar">
-                        <img src="~/images/avatar-01.jpg" alt="AVATAR">
+    <div class="container">
+        <div class="forms-container">
+            <div class="signin-signup">
+                <form action="#" class="sign-in-form">
+                    <h2 class="title">Sign in</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Usuario" />
                     </div>
-
-                    <span class="login100-form-title p-t-20 p-b-45">
-                        Ing. Edgar Rojas
-                    </span>
-
-                    <div class="wrap-input100 validate-input m-b-10" data-validate="Username is required">
-                        <input class="input100" type="text" id="correoElectronico" name="correoElectronico" aria-describedby="emailHelp" placeholder="Username">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fas fa-user"></i>
-                        </span>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Contraseña" />
                     </div>
-
-                    <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
-                        <input class="input100" type="password" id="pass" name="pass" placeholder="Password">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                    </div>
-
-                    <div class="container-login100-form-btn p-t-10">
-                        <button type="submit" class="login100-form-btn">
-                            Login
-                        </button>
-                    </div>
-
-                    <div class="text-center w-full p-t-25 p-b-230">
-                        <a href="#" class="txt1">
-                            Forgot Username / Password?
+                    <input type="submit" value="Login" class="btn solid" />
+                    <p class="social-text">Or Sign in with social platforms</p>
+                    <div class="social-media">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
-
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertSession">
-                        <strong>Error al iniciar sesion!</strong> @mensaje
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                </form>
+                <form action="#" class="sign-up-form">
+                    <h2 class="title">Sign up</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Username" />
                     </div>
-
-                    <div class="text-center w-full">
-                        <a class="txt1" href="#">
-                            Create new account
-                            <i class="fa fa-long-arrow-right"></i>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" />
+                    </div>
+                    <input type="submit" class="btn" value="Sign up" />
+                    <p class="social-text">Or Sign up with social platforms</p>
+                    <div class="social-media">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
                 </form>
             </div>
         </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>New here ?</h3>
+                    <p>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+                        ex ratione. Aliquid!
+                    </p>
+                    <button type="submit" class="btn transparent" id="sign-up-btn">
+                        Sign up
+                    </button>
+                </div>
+                <img src="~/images/log.svg" class="image" alt="" />
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>One of us ?</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+                        laboriosam ad deleniti.
+                    </p>
+                    <button type="submit" class="btn transparent" id="sign-in-btn">
+                        Sign in
+                    </button>
+                </div>
+                <img src="~/images/register.svg" class="image" alt="" />
+            </div>
+        </div>
     </div>
 
-
-    <!--===============================================================================================-->
-    <script src="~/jquery/jquery-3.3.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/popper/popper.min.js"></script>
-    <script src="~/Bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/vendor/select2/select2.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/js/main.js"></script>
+    <script src="~/js/app.js"></script>
 </body>
 </html>
-
-
-
-

@@ -281,6 +281,7 @@
     <Content Include="css\lightbox.css" />
     <Content Include="css\Login.css" />
     <Content Include="css\main.css" />
+    <Content Include="css\style.css" />
     <Content Include="css\styles.css" />
     <Content Include="css\util.css" />
     <Content Include="DataTables\DataTables-1.10.18\css\dataTables.bootstrap.css" />
@@ -331,10 +332,13 @@
     <Content Include="images\icons\icon-google.png" />
     <Content Include="images\img-01.jpg" />
     <Content Include="images\loading.gif" />
+    <Content Include="images\log.svg" />
     <Content Include="images\logo_hospital_del_parque.png" />
     <Content Include="images\next.png" />
     <Content Include="images\prev.png" />
+    <Content Include="images\register.svg" />
     <Content Include="jquery\jquery-3.3.1.min.js" />
+    <Content Include="js\app.js" />
     <Content Include="js\lightbox.js" />
     <Content Include="js\main.js" />
     <Content Include="js\scripts.js" />
